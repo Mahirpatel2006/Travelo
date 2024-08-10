@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="C:\Users\patel\Desktop\login page\views\auth.css">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+
+
+<style>
+ body {
+  position: relative;
+  height: 149vh;
+  margin: 0;
+}
+
+body:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('./grid-1.webp');
+  background-size: cover;
+  background-position: center;
+  filter: blur(4px) brightness(70%); /* add a blur filter */
+  
+  z-index: -1; /* move the pseudo-element behind the main content */
+}
+
+.book {
+  width: 80%;`
+  max-width: 800px;
+  margin: 40px auto;
+  
+  background-color:rgb(255 255 255 / 32%); /* add a semi-transparent background */
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.inputBox {
+  width: 100%;
+  margin: 10px;
+  padding: 10px;
+  background-color: #e4eaee00;
+
+  border-radius: 5px;
+}
+
+.inputBox h3 {
+  margin-top: 0;
+}
+
+.inputBox input[type="text"], .inputBox input[type="number"], .inputBox input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #f7f7f7;
+}
+
+.btn {
+  background-color: #F37254;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #e66a4a;
+}
+</style>
+<body>
+{{>navbar}}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<section class="book" id="book">
+      <div class="row">
+        <form action="/contact" method="POST">
+          <div class="inputBox">
+            <h3>where to</h3>
+            <input type="text" placeholder="place name" name="name"/>
+          </div>
+          <div class="inputBox">
+            <h3>how many</h3>
+            <input type="number" placeholder="number of guests" name="pnumber"/>
+          </div>
+          <div class="inputBox">
+            <h3>arrivals</h3>
+            <input type="date" name="adate"/>
+          </div>
+          <div class="inputBox">
+            <h3>leaving</h3>
+            <input type="date" name="lday"/>
+          </div>
+          <div class="inputBox">
+            <h3>Email</h3>
+            <input type="text" placeholder="personal Email" name="conemail"/>
+          </div>
+          <div class="inputBox">
+            <h3>Contact Number</h3>
+            <input type="number" placeholder="Contact No" name="connumber" />
+          </div>
+          <input type="submit" value="book now" class="btn" id="book-now-btn" />
+        </form>
+      </div>
+    </section>
+
+    <script>
+     
+      var options = {
+        "key": "rzp_test_yOwSqY2Ruq4ivb", 
+        "amount": "50000", 
+        "currency": "INR",
+        "name": "Travelo",
+        "description": "Payment for booking",
+        "image": "https://example.com/image.jpg",
+        "handler": function (response) {
+          // This function will be called when the payment is successful
+          console.log(response);
+          // You can access the payment information here
+          console.log(response.razorpay_payment_id);
+          console.log(response.razorpay_order_id);
+          console.log(response.razorpay_signature);
+        },
+        "prefill": {
+          "name": "Your Name",
+          "email": "your.email@example.com",
+          "contact": "9999999999"
+        },
+        "notes": {
+          "address": "Your Address"
+        },
+        "theme": {
+          "color": "#F37254"
+        }
+      };
+
+      // Create a Razorpay payment instance
+      var rzp1 = new Razorpay(options);
+
+      // Bind the book now button click event to open the payment popup
+      document.getElementById('book-now-btn').addEventListener('click', function(e) {
+        e.preventDefault();
+        rzp1.open();
+      });
+    </script>
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+  <title>Hello, world!</title>
+  <style>
+    /* *{
+            margin: 20px;
+
+        } */
+    .custom-height {
+      height: 95vh;
+      /* 50% of the viewport height */
+      object-fit: cover;
+      /* Ensures the image covers the entire area */
+      position: relative;
+    }
+
+    .custom-height::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      /* Dark overlay */
+    }
+
+    .carousel-caption {
+      position: absolute;
+      top: 120px;
+      right: 29px;
+      color: white;
+      z-index: 10;
+    }
+
+    .dancing-script {
+      font-family: 'Dancing Script', cursive;
+    }
+
+    /* From Uiverse.io by alexruix */
+    .card {
+      width: 190px;
+      height: 514px;
+      padding: .8em;
+      background: #f5f5f5;
+      position: relative;
+      overflow: visible;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+      flex: 1 1 30%;
+      /* adjust the width to 30% of the parent container */
+      margin: 10px;
+    }
+
+    .card-img {
+      background-color: #ffcaa6;
+      height: 250px;
+      width: 100%;
+      border-radius: .5rem;
+      transition: .3s ease;
+    }
+
+    .card-info {
+      /* padding-top: 10%; */
+      padding: 20px;
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .card-footer {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+      padding: 10px;
+      border-top: 1px solid #ddd;
+    }
+
+    /*Text*/
+    .text-title {
+      font-weight: 900;
+      font-size: x
+        /* line-height: 1.5; */
+    }
+
+    .text-body {
+      font-size: 12px;
+      padding-bottom: 10px;
+    }
+
+    /*Button*/
+    .card-button {
+      border: 1px solid #252525;
+      display: flex;
+      padding: .3em;
+      cursor: pointer;
+      border-radius: 50px;
+      transition: .3s ease-in-out;
+    }
+
+    /*Hover*/
+    .card-img:hover {
+      transform: translateY(-25%);
+      box-shadow: rgba(226, 196, 63, 0.25) 0px 13px 47px -5px, rgba(180, 71, 71, 0.3) 0px 8px 16px -8px;
+    }
+
+    .card-button:hover {
+      border: 1px solid #111110;
+      background-color: #0f0e0d;
+    }
+
+    .card-img {
+      width: 100%;
+      height: 200px;
+      /* Adjust the height as needed */
+      overflow: hidden;
+    }
+
+    .img-fit {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header class="header">
+
+    <div id="menu-btn" class="fas fa-bars"></div>
+
+    <a href="#" class="logo">travel</a>
+
+    <nav class="navbar">
+      <div id="close-navbar" class="fas fa-times"></div>
+      <a href="/index">home</a>
+      <a href="index.html">about</a>
+      <a href="index.html">services</a>
+      <a href="index.html">packages</a>
+      <a href="index.html">gallery</a>
+      <a href="index.html">review</a>
+    </nav>
+
+    <a href="#book" class="btn"> book now</a>
+
+  </header>
+
+
+
+
+
+
+
+
+
+  <div class="carousel-caption d-none d-md-block cl">
+    <p style="font-size:50px;" class="dancing-script">Varanasi: The Spiritual Hub of India</p>
+  </div>
+
+  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+        aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+        aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+        aria-label="Slide 3"></button>
+    </div>
+
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="varanasi-1.avif" class="d-block w-100 custom-height" style="filter: brightness(80%);" alt="...">
+
+      </div>
+      <div class="carousel-item">
+        <img src="varanasi-2.avif" class="d-block w-100 custom-height" style="filter: brightness(80%);" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <!-- <h5>Second slide label</h5>
+                    <p>Some representative placeholder content for the second slide.</p> -->
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="varanasi-3.avif" class="d-block w-100 custom-height" style="filter: brightness(80%);" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <!-- <h5>Third slide label</h5>
+                    <p>Some representative placeholder content for the third slide.</p> -->
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  <br>
+  <br>
+  <div style="padding: 20px;">
+    <div class="dancing-script"
+      style="font-size: 70px; padding: 30px; background-color:#6c757dc2;position: relative; bottom:30px;  box-shadow: 0 1.5rem 3rem #41464b; color: white;">
+      Varanasi</div>
+    <div
+      style="font-size: x-large; background-color:#6c757dc2; position: relative; bottom: 20px;  box-shadow: 0 1.5rem 3rem #41464b; color: white;">
+      <p class="dancing-script" style="padding: 12px 57px;
+    display: flex;
+    align-content: center;
+    justify-content: center;"> Varanasi is a city of immense spiritual significance, rich cultural heritage, and
+        tourist attractions. The city's unique blend of tradition and modernity makes it a fascinating destination for
+        visitors from around the world.</p>
+
+      <h2 class="dancing-script" style="font-size: xx-large; font-weight: 600;">Geography and Climate</h2>
+
+      <p class="dancing-script" style="padding: 12px 57px;
+        display: flex;
+        align-content: center;
+        justify-content: center;">Varanasi, also known as Benares, is situated in the northern Indian state of Uttar
+        Pradesh. It is located on the banks of the Ganges River and is one of the oldest continuously inhabited cities
+        in the world. The city experiences a humid subtropical climate, with hot summers and mild winters.</p>
+
+      <h2 class="dancing-script" style="font-size: xx-large; font-weight: 600;">Spiritual Significance</h2>
+
+      <p class="dancing-script" style="padding: 12px 57px;
+       display: flex;
+       align-content: center;
+       justify-content: center;">Varanasi is considered one of the seven sacred cities in Hinduism and is often
+        referred to as the "City of Shiva". The city is home to numerous temples, ghats, and ashrams, which attract
+        millions of pilgrims and tourists every year. The Ganges River is considered sacred, and a dip in its waters is
+        believed to wash away sins.</p>
+
+      <h2 class="dancing-script" style="font-size: xx-large; font-weight: 600;"> Cultural Heritage</h2>
+      <p class="dancing-script" style="padding: 12px 57px;
+        display: flex;
+        align-content: center;
+        justify-content: center;"> Varanasi is a city of rich cultural heritage, with a blend of Hindu, Buddhist, and
+        Islamic influences. The city is famous for its classical music, dance, and art. The Benares Gharana of music is
+        a renowned school of classical music.
+
+      <h2 class="dancing-script" style="font-size: xx-large; font-weight: 600;">Economy </h2>
+
+      <p class="dancing-script" style="padding: 12px 57px;
+       display: flex;
+       align-content: center;
+       justify-content: center;"> The economy of Varanasi is largely dependent on tourism, with millions of visitors
+        every year. The city is also famous for its silk weaving, carpet making, and handicrafts.
+
+      <h2 class="dancing-script" style="font-size: xx-large; font-weight: 600;">Cuisine </h2>
+      <p class="dancing-script" style="padding: 12px 57px;
+        display: flex;
+        align-content: center;
+        justify-content: center;"> Varanasi is famous for its street food, including chaat, kachoris, and thandai. The
+        city is also known for its traditional sweets, such as jalebi and rabri.
+
+      </p>
+    </div>
+  </div>
+
+
+
+  <div class="oky" style="display: flex; gap: 15px;">
+    <div class="card">
+      <div class="card-img">
+        <img src="varanasi-4.jpg" alt="Product Image" class="img-fit">
+      </div>
+      <div class="card-info">
+        <p class="text-title" style="font-size:x-large;">Sarnath</p>
+        <p class="text-body" style="font: size 12px;">Sarnath is a small town located about 10 km from Varanasi. It is a
+          significant Buddhist pilgrimage site, as it is the place where Lord Buddha delivered his first sermon after
+          attaining enlightenment. The town is home to many ancient temples, stupas, and museums, including the famous
+          Dhamek Stupa and the Sarnath Archaeological Museum.
+
+        </p>
+      </div>
+      <div class="card-footer">
+        <span class="text-title" style="font-size: x-large;">3-4 Hrs</span>
+        <div class="card-button">
+
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="varanasi-5.jpg" alt="Product Image" class="img-fit">
+      </div>
+      <div class="card-info">
+        <p class="text-title" style="font-size:x-large;">Mirzapur</p>
+        <p class="text-body" style="font: size 12px;">
+          Mirzapur is a city located about 60 km from Varanasi. It is known for its scenic natural beauty, with many
+          waterfalls, lakes, and forests. The city is also home to many ancient temples and forts, including the famous
+          Vindhyachal Dham and the Chunar Fort.
+
+
+
+
+
+
+
+        </p>
+      </div>
+      <div class="card-footer">
+        <span class="text-title" style="font-size: x-large;">3-4 Hrs</span>
+        <div class="card-button">
+
+
+
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="varanasi-6.jpg" alt="Product Image" class="img-fit">
+      </div>
+      <div class="card-info">
+        <p class="text-title" style="font-size:x-large;">Sonbhadra</p>
+        <p class="text-body" style="font: size 12px;">Sonbhadra is a city located about 100 km from Varanasi. It is
+          known for its ancient history, with many archaeological sites and museums. The city is also home to many
+          natural attractions, including waterfalls, lakes, and forests.
+
+
+
+
+
+
+
+
+
+
+        <div class="card-footer">
+          <span class="text-title" style="font-size: x-large;">3-4 Hrs</span>
+          <div class="card-button">
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+</body>
+
+</html>

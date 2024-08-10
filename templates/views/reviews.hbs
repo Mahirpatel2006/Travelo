@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+.dady{
+    display: flex;
+    justify-content:space-between;
+}
+.section {
+    padding: 11rem 3%;
+}
+
+
+.book .row form {
+    flex: 1 1 40rem;
+    padding: 2rem;
+    background-color: #29a5a361;
+    box-shadow: 0 -0.5rem 5rem #29a5a378;
+    border-radius: .5rem;
+    width: 318px;
+}
+
+
+/* From Uiverse.io by SouravBandyopadhyay */ 
+.card-title {
+  color: #262626;
+  font-size: 1.5em;
+  line-height: normal;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+}
+
+.small-desc {
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.5em;
+  color: #452c2c;
+}
+
+.small-desc {
+  font-size: 1em;
+}
+
+.go-corner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 2em;
+  height: 2em;
+  overflow: hidden;
+  top: 0;
+  right: 0;
+  background: linear-gradient(135deg, #6293c8, #384c6c);
+  border-radius: 0 4px 0 32px;
+}
+
+.go-arrow {
+  margin-top: -4px;
+  margin-right: -4px;
+  color: white;
+  font-family: courier, sans;
+}
+
+.card {
+  display: block;
+  position: relative;
+  max-width: 810px;
+  max-height: 120px;
+  background-color: #f2f8f9;
+  border-radius: 10px;
+  padding: 2em 1.2em;
+  margin: 12px;
+  text-decoration: none;
+  z-index: 0;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #c3e6ec, #a7d1d9);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.card:before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: -16px;
+  right: -16px;
+  background: linear-gradient(135deg, #364a60, #384c6c);
+  height: 32px;
+  width: 32px;
+  border-radius: 32px;
+  transform: scale(1);
+  transform-origin: 50% 50%;
+  transition: transform 0.35s ease-out;
+}
+
+.card:hover:before {
+  transform: scale(54);
+}
+
+.card:hover .small-desc {
+  transition: all 0.5s ease-out;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.card:hover .card-title {
+  transition: all 0.5s ease-out;
+  color: #ffffff;
+}
+
+    </style>
+</head>
+<body>
+    {{>navbar}}
+    <br>
+<br>
+<br>
+<br>
+<br>
+
+<br>
+<br>
+<br>
+<br>
+<input type="text" id="myinput" placeholder="    seaarch" onkeyup="searchFun()" style="height: 70px; width: 50%; background-color:#c8d8db; border-radius:35px; position: relative; left: 50px;">
+<br>
+
+<div class="dady">
+
+
+  <div>
+   <div class="card">
+      <p class="card-title">Name</p>
+      <p class="small-desc">mahirpatel1426@gmail.com
+        <p class="small-desc" id="rplace">home  </p>
+      </p>
+      <br>
+      <p class="small-desc">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat
+        veritatis nobis saepe itaque rerum nostrum aliquid obcaecati odio
+        officia deleniti. Expedita iste et illum, quaerat pariatur consequatur
+        eum nihil itaque!
+      </p>
+      <div class="go-corner">
+        <div class="go-arrow">→</div>
+      </div>
+    </div>
+
+
+
+
+    {{#each reviews}}
+      <div class="card">
+        <p class="card-title">{{revname}}</p>
+        <p class="small-desc">{{revemail}}</p>
+        <p class="small-desc" id="rplace">{{revplace}}</p>
+        {{!-- <p>{{revnumber}}</p> --}}
+        <br>
+        <p class=" small-desc">{{review}}</p>
+      </div>
+    {{/each}}
+
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <section class="book my" id="book">
+      <div class="row">
+        <form action="/reviews" method="POST">
+          <div class="inputBox">
+            <h3>Name</h3>
+            <input type="text" placeholder="Your Name" name="revname"/>
+          </div>
+          <div class="inputBox">
+            <h3>place</h3>
+            <input type="text" placeholder="name of place" name="revplace"/>
+          </div>
+          {{!-- <div class="inputBox">
+            <h3>arrivals</h3>
+            <input type="date" name="revadate"/>
+          </div>
+          <div class="inputBox">
+            <h3>leaving</h3>
+            <input type="date" name="revlday"/>
+          </div> --}}
+          <div class="inputBox">
+            <h3>Email</h3>
+            <input type="text" placeholder="personal Email (optional)" name="revemail"/>
+          </div>
+          <div class="inputBox">
+            <h3>Contact Number</h3>
+            <input type="number" placeholder="Contact No (optional)" name="revnumber" />
+          </div>
+          <div class="inputBox">
+            <h3>Your Review</h3>
+            <input type="text" placeholder="reviews about your trip " name="review" />
+          </div>
+          <input type="submit" value="book now" class="btn" />
+        </form>
+      </div>
+    </section>
+
+
+</div> 
+
+<script>
+
+const searchFun = () => {
+  let filter = document.getElementById('myinput').value.toUpperCase();
+  let cardElements = document.querySelectorAll('.card');
+
+  cardElements.forEach((element) => {
+    let textContent = element.textContent.toUpperCase();
+    if (textContent.includes(filter)) {
+      element.style.display = 'block';
+    } else {
+      element.style.display = 'none';
+    }
+  });
+}
+
+
+</script>
+</body>
+</html>
