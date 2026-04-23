@@ -12,9 +12,9 @@ router.get('/profile', isAuthenticated, pageController.getProfile);
 
 // /contact renders the general booking page (requires auth in bookingRoutes, 
 // but contact is pre-auth landing — handled separately here as a public info page)
-router.get('/hotelcontact', pageController.getHotelContact);
+router.get('/hotelcontact', isAuthenticated, pageController.getHotelContact);
 
-router.get('/contact', (req, res) => {
+router.get('/contact', isAuthenticated, (req, res) => {
   const csrfToken = req.csrfToken ? req.csrfToken() : '';
   res.render('pages/bookings/contact', { 
     title: 'Book a Trip | Travelo', 

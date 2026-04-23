@@ -177,8 +177,15 @@ if (require.main === module) {
   };
   startServer();
 } else {
-    // In serverless, we still need to connect to the DB
-    connectDB().catch(err => logger.error('Database connection error in serverless:', err));
+    // In serverless, we must ensure the DB is connected for every request
+    app.use(async (req, res, next) => {
+        try {
+            await connectDB();
+            next();
+        } catch (err) {
+            next(err);
+        }
+    });
 }
 
 process.on('SIGTERM', () => {
