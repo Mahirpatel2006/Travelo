@@ -58,6 +58,23 @@ const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 500, // Increased to 500 to prevent issues during development
   standardHeaders: true, 
+  legacyHeaders: false,
+});
+app.use('/api', limiter);
+
+// Middleware to ensure DB connection in serverless environments
+// This MUST be near the top to run before routes
+if (require.main !== module) {
+  app.use(async (req, res, next) => {
+    try {
+      await connectDB();
+      next();
+    } catch (err) {
+      logger.error('Database connection failed in serverless middleware:', err);
+      next(err);
+    }
+  });
+}
   legacyHeaders: false, 
 });
 
@@ -162,7 +179,7 @@ let server;
 // Export app for Vercel
 module.exports = app;
 
-// Start server if not running as a module (e.g., local development)
+// Start server if running locally
 if (require.main === module) {
   const startServer = async () => {
     try {
@@ -176,16 +193,6 @@ if (require.main === module) {
     }
   };
   startServer();
-} else {
-    // In serverless, we must ensure the DB is connected for every request
-    app.use(async (req, res, next) => {
-        try {
-            await connectDB();
-            next();
-        } catch (err) {
-            next(err);
-        }
-    });
 }
 
 process.on('SIGTERM', () => {
