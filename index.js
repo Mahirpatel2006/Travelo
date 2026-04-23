@@ -26,7 +26,7 @@ const csrf = require('csurf');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
+// ── Security Headers ──
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
@@ -37,58 +37,55 @@ app.use(helmet({
       "img-src": ["'self'", "data:", "https://*"],
     },
   },
-})); // Set security HTTP headers
-app.use(compression()); // Compress all responses
+}));
 
-// CORS — restrict in production
+app.use(compression());
+
+// ── CORS ──
 const corsOptions = {
   origin: process.env.CORS_ORIGIN || (process.env.NODE_ENV === 'production' ? false : true),
   credentials: true,
 };
 app.use(cors(corsOptions));
 
-// Logging
+// ── Logging ──
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 } else {
   app.use(morgan('combined', { stream: { write: message => logger.info(message.trim()) } }));
 }
 
+// ── Rate Limiting ──
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 500, // Increased to 500 to prevent issues during development
-  standardHeaders: true, 
+  max: 500,
+  standardHeaders: true,
   legacyHeaders: false,
 });
-app.use('/api', limiter);
+app.use(limiter);
 
-// Middleware to ensure DB connection in serverless environments
-// This MUST be near the top to run before routes
+// ── Serverless DB Connection Middleware ──
+// MUST run before routes. In serverless (Vercel), connectDB is called per-request.
+// In local dev, the DB is connected once at startup (see bottom of this file).
 if (require.main !== module) {
   app.use(async (req, res, next) => {
     try {
       await connectDB();
       next();
     } catch (err) {
-      logger.error('Database connection failed in serverless middleware:', err);
+      logger.error('DB connection failed in serverless middleware:', err);
       next(err);
     }
   });
 }
-  legacyHeaders: false, 
-});
 
+// ── Body Parsers & Static Files ──
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.SESSION_SECRET || 'fallback_secret_do_not_use_in_prod'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Apply the rate limiting middleware to dynamic routes only
-app.use(limiter); 
-
-const csrfProtection = csrf({ cookie: true });
-
-// Session config using MongoStore for persistence
+// ── Session ──
 app.use(session({
   secret: process.env.SESSION_SECRET || 'fallback_secret_do_not_use_in_prod',
   resave: false,
@@ -98,15 +95,14 @@ app.use(session({
     maxAge: 1000 * 60 * 60 * 24, // 1 day
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
-  }
+  },
 }));
 
-// Apply CSRF protection
+// ── CSRF Protection ──
+const csrfProtection = csrf({ cookie: true });
 app.use(csrfProtection);
 
-
-
-// Global template variables
+// ── Global Template Variables (user & CSRF token) ──
 app.use(async (req, res, next) => {
   try {
     if (req.session?.userId) {
@@ -121,7 +117,7 @@ app.use(async (req, res, next) => {
   }
 });
 
-// Handlebars view engine setup
+// ── Handlebars View Engine ──
 app.engine('.hbs', engine({
   extname: '.hbs',
   defaultLayout: 'main',
@@ -129,57 +125,48 @@ app.engine('.hbs', engine({
   partialsDir: path.join(__dirname, 'views', 'partials'),
   helpers: {
     section: function(name, options) {
-      if(!this._sections) this._sections = {};
+      if (!this._sections) this._sections = {};
       this._sections[name] = options.fn(this);
       return null;
     },
     addOne: (value) => parseInt(value) + 1,
-    // Returns the first character of a name (for avatar initials)
     nameInitial: (name) => (name && name.length > 0) ? name.charAt(0).toUpperCase() : '?',
-    // Repeats a block N times (used for star ratings)
     times: (n, options) => {
       let result = '';
       for (let i = 0; i < (parseInt(n) || 0); i++) result += options.fn(i);
       return result;
     },
-    // Returns first truthy value (logical OR for HBS)
     or: (...args) => args.slice(0, -1).find(Boolean),
   },
 }));
 app.set('view engine', '.hbs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Health Check Endpoint (for monitoring / uptime checks)
+// ── Health Check ──
 app.get('/api/health', (req, res) => {
-  res.status(200).json({
-    status: 'ok',
-    uptime: process.uptime(),
-    timestamp: new Date().toISOString(),
-  });
+  res.status(200).json({ status: 'ok', uptime: process.uptime(), timestamp: new Date().toISOString() });
 });
 
-// Routes
+// ── Routes ──
 app.use('/', pageRoutes);
 app.use('/auth', authRoutes);
 app.use('/booking', bookingRoutes);
 app.use('/reviews', reviewRoutes);
 app.get('/form', (req, res) => res.redirect('/auth'));
 
-// 404 Handler
+// ── 404 Handler ──
 app.use((req, res) => {
   res.status(404).render('pages/404', { title: 'Page Not Found | Travelo' });
 });
 
-// Error Handler (must be last)
+// ── Global Error Handler ──
 app.use(errorHandler);
 
-// Graceful shutdown handling
-let server;
-
-// Export app for Vercel
+// ── Export for Vercel (serverless) ──
 module.exports = app;
 
-// Start server if running locally
+// ── Local Server Startup ──
+let server;
 if (require.main === module) {
   const startServer = async () => {
     try {
@@ -195,31 +182,25 @@ if (require.main === module) {
   startServer();
 }
 
+// ── Graceful Shutdown ──
 process.on('SIGTERM', () => {
-  logger.info('SIGTERM signal received: closing HTTP server');
+  logger.info('SIGTERM received: closing HTTP server');
   if (server) {
-    server.close(() => {
-      logger.info('HTTP server closed');
-      process.exit(0);
-    });
+    server.close(() => { logger.info('HTTP server closed'); process.exit(0); });
   } else {
     process.exit(0);
   }
 });
 
 process.on('SIGINT', () => {
-  logger.info('SIGINT signal received: closing HTTP server');
+  logger.info('SIGINT received: closing HTTP server');
   if (server) {
-    server.close(() => {
-      logger.info('HTTP server closed');
-      process.exit(0);
-    });
+    server.close(() => { logger.info('HTTP server closed'); process.exit(0); });
   } else {
     process.exit(0);
   }
 });
 
-// Catch unhandled rejections
 process.on('unhandledRejection', (reason, promise) => {
   logger.error('Unhandled Rejection at:', promise, 'reason:', reason);
 });
