@@ -159,19 +159,27 @@ app.use(errorHandler);
 // Graceful shutdown handling
 let server;
 
-const startServer = async () => {
-  try {
-    await connectDB();
-    server = app.listen(PORT, () => {
-      logger.info(`Server running on port ${PORT}`);
-    });
-  } catch (err) {
-    logger.error('Failed to start server:', err);
-    process.exit(1);
-  }
-};
+// Export app for Vercel
+module.exports = app;
 
-startServer();
+// Start server if not running as a module (e.g., local development)
+if (require.main === module) {
+  const startServer = async () => {
+    try {
+      await connectDB();
+      server = app.listen(PORT, () => {
+        logger.info(`Server running on port ${PORT}`);
+      });
+    } catch (err) {
+      logger.error('Failed to start server:', err);
+      process.exit(1);
+    }
+  };
+  startServer();
+} else {
+    // In serverless, we still need to connect to the DB
+    connectDB().catch(err => logger.error('Database connection error in serverless:', err));
+}
 
 process.on('SIGTERM', () => {
   logger.info('SIGTERM signal received: closing HTTP server');
