@@ -1,0 +1,652 @@
+<style>
+
+body { font-family: 'Inter', sans-serif !important; text-transform: none !important; }
+
+
+
+/* ── Trip Booking Page ─────────────────── */
+.tbook-page {
+  min-height: 100vh;
+  background: #f9fbfc;
+  padding: 8.8rem 0 9.6rem;
+}
+
+.tbook-breadcrumb {
+  max-width: 1100px;
+  margin: 0 auto 0;
+  padding: 0 2.4rem 1.6rem;
+  font-size: 1.44rem;
+  color: #4a5568;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.tbook-breadcrumb a { color: #208886; text-decoration: none; }
+.tbook-breadcrumb a:hover { text-decoration: underline; }
+
+.tbook-layout {
+  display: grid;
+  grid-template-columns: 1fr 500px;
+  gap: 0;
+  max-width: 1100px;
+  margin: 3.2rem auto 0;
+  padding: 0 2.4rem;
+  align-items: start;
+}
+
+/* Left panel */
+.tbook-info { padding-right: 5.6rem; }
+
+.tbook-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase !important;
+  color: #208886;
+  background: rgba(41,165,163,.1);
+  border: 1px solid rgba(41,165,163,.3);
+  border-radius: 30px;
+  padding: 0.64rem 1.76rem;
+  margin-bottom: 2.4rem;
+}
+
+.tbook-title {
+  font-family: 'Playfair Display', Georgia, serif !important;
+  font-size: clamp(4rem, 4vw, 6rem);
+  font-weight: 700;
+  color: #1a202c;
+  line-height: 1.12;
+  margin-bottom: 1.76rem;
+  text-transform: none !important;
+}
+
+.tbook-title span { color: #208886; }
+
+.tbook-sub {
+  font-size: 1.76rem;
+  color: #4a5568;
+  line-height: 1.8;
+  margin-bottom: 4rem;
+  max-width: 440px;
+  text-transform: none !important;
+}
+
+.tbook-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  margin-bottom: 4rem;
+}
+
+.tbook-step {
+  display: flex;
+  gap: 1.6rem;
+  align-items: flex-start;
+}
+
+.tbook-step-num {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: rgba(41,165,163,.1);
+  border: 1.5px solid rgba(41,165,163,.25);
+  color: #208886;
+  font-size: 1.44rem;
+  font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.tbook-step-title {
+  font-size: 1.68rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin-bottom: 0.32rem;
+  text-transform: none !important;
+}
+.tbook-step-desc {
+  font-size: 1.48rem;
+  color: #4a5568;
+  text-transform: none !important;
+}
+
+/* Destinations row */
+.tbook-dests {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 3.2rem;
+  padding-top: 3.2rem;
+  border-top: 1px solid rgba(0,0,0,.08);
+  align-items: center;
+}
+
+.tbook-dests-label {
+  font-size: 1.28rem;
+  color: #718096;
+  width: 100%;
+  margin-bottom: 0.4rem;
+  text-transform: none !important;
+}
+
+.tbook-dest-tag {
+  font-size: 1.4rem;
+  color: #208886;
+  background: #fff;
+  border: 1px solid rgba(41,165,163,.3);
+  border-radius: 20px;
+  padding: 0.64rem 1.6rem;
+  transition: all .2s;
+  text-transform: capitalize !important;
+  display: inline-block;
+}
+
+.tbook-dest-tag:hover {
+  background: rgba(41,165,163,.1);
+  color: #1e7e7c;
+  border-color: #29a5a3;
+}
+
+/* Form card */
+.tbook-card {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 20px;
+  padding: 4.4rem;
+  box-shadow: 0 20px 60px rgba(0,0,0,.06), 0 0 40px rgba(41,165,163,.04);
+  position: sticky;
+  top: 90px;
+}
+
+.tbook-card-title {
+  font-size: 2.24rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 0.48rem;
+  text-transform: none !important;
+}
+.tbook-card-sub {
+  font-size: 1.48rem;
+  color: #4a5568;
+  margin-bottom: 2.8rem;
+  text-transform: none !important;
+}
+
+.tbook-field { display: flex; flex-direction: column; gap: 0.72rem; margin-bottom: 1.6rem; }
+.tbook-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.44rem; }
+
+.tbook-label {
+  font-size: 1.28rem;
+  font-weight: 600;
+  letter-spacing: .75px;
+  text-transform: uppercase !important;
+  color: #4a5568;
+}
+
+.tbook-input, .tbook-select {
+  width: 100%;
+  background: #f8fafb;
+  border: 1.5px solid rgba(0,0,0,.12);
+  border-radius: 10px;
+  padding: 1.44rem 1.76rem;
+  font-size: 1.6rem;
+  color: #1a202c;
+  font-family: inherit;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s, background .2s;
+  text-transform: none !important;
+}
+
+.tbook-input:focus, .tbook-select:focus {
+  border-color: #29a5a3;
+  box-shadow: 0 0 0 3px rgba(41,165,163,.12);
+  background: #fff;
+}
+
+.tbook-input::placeholder { color: #a0aec0; }
+.tbook-select option { background: #fff; }
+
+.tbook-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.04rem;
+  width: 100%;
+  padding: 1.68rem 2.4rem;
+  background: linear-gradient(135deg, #29a5a3, #1e7e7c);
+  color: #fff;
+  font-size: 1.68rem;
+  font-weight: 700;
+  font-family: inherit;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all .25s;
+  margin-top: 0.8rem;
+  text-transform: none !important;
+  letter-spacing: .3px;
+}
+
+.tbook-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(41,165,163,.35);
+}
+
+.tbook-secure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.72rem;
+  font-size: 1.4rem;
+  color: #718096;
+  margin-top: 1.6rem;
+  text-transform: none !important;
+}
+
+/* ── Payment Success Modal ── */
+.pay-success-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15,23,42,.55);
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+}
+.pay-success-overlay.active { display: flex; }
+
+.pay-success-modal {
+  background: #fff;
+  border-radius: 24px;
+  padding: 4.8rem 4.4rem;
+  max-width: 480px;
+  width: 92%;
+  text-align: center;
+  box-shadow: 0 40px 100px rgba(0,0,0,.2);
+  animation: modalPop .4s cubic-bezier(.34,1.56,.64,1);
+}
+
+@keyframes modalPop {
+  from { opacity:0; transform:scale(.8) translateY(30px); }
+  to   { opacity:1; transform:scale(1) translateY(0); }
+}
+
+.pay-success-icon {
+  width: 84px; height: 84px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #29a5a3, #1e7e7c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 2.4rem;
+  font-size: 3.6rem;
+  color: #fff;
+  box-shadow: 0 12px 32px rgba(41,165,163,.4);
+}
+
+.pay-success-emoji {
+  font-size: 4.8rem;
+  display: block;
+  margin: 0 auto 1.6rem;
+  animation: bounce 1s ease infinite alternate;
+}
+
+@keyframes bounce {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-6px); }
+}
+
+.pay-success-title {
+  font-family: 'Playfair Display', Georgia, serif !important;
+  font-size: 3.04rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 0.96rem;
+  text-transform: none !important;
+}
+
+.pay-success-sub {
+  font-size: 1.6rem;
+  color: #4a5568;
+  line-height: 1.75;
+  margin-bottom: 2.4rem;
+  text-transform: none !important;
+}
+
+.pay-success-ref {
+  display: inline-block;
+  background: rgba(41,165,163,.08);
+  border: 1px solid rgba(41,165,163,.25);
+  color: #208886;
+  font-size: 1.44rem;
+  font-weight: 600;
+  padding: 0.8rem 2.4rem;
+  border-radius: 30px;
+  margin-bottom: 3.2rem;
+  text-transform: none !important;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 1px;
+}
+
+.pay-success-divider {
+  border: none;
+  border-top: 1px solid rgba(0,0,0,.08);
+  margin: 2.4rem 0;
+}
+
+.pay-success-details {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 2.8rem;
+}
+
+.pay-success-detail-item { text-align: center; }
+.pay-success-detail-label {
+  font-size: 1.2rem;
+  color: #718096;
+  text-transform: uppercase !important;
+  letter-spacing: 1px;
+  margin-bottom: 0.4rem;
+}
+.pay-success-detail-value {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #1a202c;
+  text-transform: none !important;
+}
+
+.pay-success-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #29a5a3, #1e7e7c);
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 700;
+  padding: 1.44rem 4.4rem;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all .2s;
+  text-transform: none !important;
+  font-family: inherit;
+}
+.pay-success-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(41,165,163,.35); }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .tbook-layout {
+    grid-template-columns: 1fr;
+  }
+  .tbook-info { padding-right: 0; margin-bottom: 3.2rem; }
+  .tbook-card { position: static; }
+}
+
+@media (max-width: 768px) {
+  /* Navbar */
+  .header { padding: 1.6rem 2.4rem !important; }
+  #menu-btn { display: inline-block !important; }
+  .header .btn { display: none !important; }
+
+  /* Page layout */
+  .tbook-page { padding: 7.2rem 0 6.4rem; }
+  .tbook-breadcrumb { padding: 0 1.6rem 1.2rem; }
+  .tbook-layout { padding: 0 1.6rem; margin-top: 1.6rem; }
+
+  /* Form rows */
+  .tbook-row { grid-template-columns: 1fr; }
+
+  /* Card */
+  .tbook-card { padding: 2.4rem; }
+
+  /* Summary items */
+  .tbook-summary-item { font-size: 1.36rem; }
+
+  /* Total row */
+  .tbook-total { flex-direction: column; gap: 0.8rem; align-items: flex-start; }
+
+  /* Success modal */
+  .pay-success-modal { padding: 3.2rem 2rem; margin: 0 1.6rem; }
+  .pay-success-details { flex-direction: column; gap: 1.6rem; }
+  .pay-success-title { font-size: 2.4rem !important; }
+}
+
+@media (max-width: 520px) {
+  .tbook-row { grid-template-columns: 1fr; }
+  .pay-success-details { flex-direction: column; gap: 1.6rem; }
+  .tbook-badge { font-size: 1.04rem; }
+  .tbook-name { font-size: 2.56rem !important; }
+}
+</style>
+
+<!-- Payment Success Modal -->
+<div class="pay-success-overlay" id="pay-success-overlay">
+  <div class="pay-success-modal">
+    <div class="pay-success-icon"><i class="fas fa-check"></i></div>
+    <div class="pay-success-title">Booking Confirmed!</div>
+    <p class="pay-success-sub">Your trip deposit has been received successfully. Our travel team will reach out within 24 hours to finalise your personalised itinerary.</p>
+    <div class="pay-success-ref" id="pay-success-ref">TXN-XXXXXXXX</div>
+    <hr class="pay-success-divider">
+    <div class="pay-success-details">
+      <div class="pay-success-detail-item">
+        <div class="pay-success-detail-label">Destination</div>
+        <div class="pay-success-detail-value" id="psd-destination">—</div>
+      </div>
+      <div class="pay-success-detail-item">
+        <div class="pay-success-detail-label">Amount Paid</div>
+        <div class="pay-success-detail-value" id="psd-amount">₹5,000</div>
+      </div>
+      <div class="pay-success-detail-item">
+        <div class="pay-success-detail-label">Status</div>
+        <div class="pay-success-detail-value" style="color:#29a5a3;">✓ Confirmed</div>
+      </div>
+    </div>
+    <button class="pay-success-btn" onclick="window.location.href='/'">Back to Home</button>
+  </div>
+</div>
+
+<div class="tbook-page">
+
+  <nav class="tbook-breadcrumb" aria-label="Breadcrumb">
+    <a href="/"><i class="fas fa-home"></i></a>
+    <i class="fas fa-chevron-right" style="font-size:1.12rem;color:#a0aec0"></i>
+    <span>Book a Trip</span>
+  </nav>
+
+  <div class="tbook-layout">
+
+    <!-- Left info -->
+    <div class="tbook-info">
+      <div class="tbook-badge"><i class="fas fa-map-marked-alt"></i> Custom Trip Booking</div>
+      <h1 class="tbook-title">Plan Your<br><span>Perfect Trip</span></h1>
+      <p class="tbook-sub">
+        Tell us where you want to go and we'll handle everything — from accommodation to activities, fully customised to you.
+      </p>
+
+      <div class="tbook-steps">
+        <div class="tbook-step">
+          <div class="tbook-step-num">1</div>
+          <div>
+            <div class="tbook-step-title">Fill the form</div>
+            <div class="tbook-step-desc">Share your destination, dates, and group size.</div>
+          </div>
+        </div>
+        <div class="tbook-step">
+          <div class="tbook-step-num">2</div>
+          <div>
+            <div class="tbook-step-title">We plan your trip</div>
+            <div class="tbook-step-desc">Our team curates hotels, transport &amp; activities.</div>
+          </div>
+        </div>
+        <div class="tbook-step">
+          <div class="tbook-step-num">3</div>
+          <div>
+            <div class="tbook-step-title">Secure checkout</div>
+            <div class="tbook-step-desc">Pay safely via Razorpay. Get instant confirmation.</div>
+          </div>
+        </div>
+        <div class="tbook-step">
+          <div class="tbook-step-num">4</div>
+          <div>
+            <div class="tbook-step-title">Explore &amp; enjoy</div>
+            <div class="tbook-step-desc">We're with you throughout your journey.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tbook-dests">
+        <span class="tbook-dests-label">Popular destinations:</span>
+        <a href="/destinations/goa" class="tbook-dest-tag">Goa</a>
+        <a href="/destinations/manali" class="tbook-dest-tag">Manali</a>
+        <a href="/destinations/darjeeling" class="tbook-dest-tag">Darjeeling</a>
+        <a href="/destinations/varanasi" class="tbook-dest-tag">Varanasi</a>
+        <a href="/destinations/ooty" class="tbook-dest-tag">Ooty</a>
+        <a href="/destinations/udaipur" class="tbook-dest-tag">Udaipur</a>
+      </div>
+    </div>
+
+    <!-- Form card -->
+    <div class="tbook-card">
+      <div class="tbook-card-title">Trip Details</div>
+      <div class="tbook-card-sub">All fields marked * are required</div>
+
+      <form id="booking-form" action="/contact" method="POST">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+        <div class="tbook-field">
+          <label class="tbook-label" for="tb-dest">Destination *</label>
+          <select class="tbook-select" id="tb-dest" name="destination" required>
+            <option value="" disabled selected>Choose a destination</option>
+            <option value="Goa">Goa</option>
+            <option value="Manali">Manali</option>
+            <option value="Darjeeling">Darjeeling</option>
+            <option value="Varanasi">Varanasi</option>
+            <option value="Ooty">Ooty</option>
+            <option value="Udaipur">Udaipur</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="tbook-row">
+          <div class="tbook-field">
+            <label class="tbook-label" for="tb-guests">Guests *</label>
+            <input class="tbook-input" id="tb-guests" type="number" name="guestCount" placeholder="2" min="1" max="50" required>
+          </div>
+          <div class="tbook-field">
+            <label class="tbook-label" for="tb-arrive">Arrival *</label>
+            <input class="tbook-input" id="tb-arrive" type="date" name="arrivalDate" required>
+          </div>
+        </div>
+
+        <div class="tbook-field">
+          <label class="tbook-label" for="tb-leave">Departure *</label>
+          <input class="tbook-input" id="tb-leave" type="date" name="departureDate" required>
+        </div>
+
+        <div class="tbook-row">
+          <div class="tbook-field">
+            <label class="tbook-label" for="tb-email">Email *</label>
+            <input class="tbook-input" id="tb-email" type="email" name="email" placeholder="you@email.com" required>
+          </div>
+          <div class="tbook-field">
+            <label class="tbook-label" for="tb-phone">Phone *</label>
+            <input class="tbook-input" id="tb-phone" type="tel" name="phone" placeholder="10-digit number" required>
+          </div>
+        </div>
+
+        <button type="button" id="pay-button" class="tbook-submit">
+          <i class="fas fa-lock"></i> Pay Deposit (₹5,000) &amp; Book
+        </button>
+      </form>
+
+      <div class="tbook-secure">
+        <i class="fas fa-shield-alt" style="color:#29a5a3"></i>
+        256-bit SSL encrypted · Powered by Razorpay
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('tb-arrive').min = today;
+  document.getElementById('tb-leave').min = today;
+  document.getElementById('tb-arrive').addEventListener('change', function () {
+    document.getElementById('tb-leave').min = this.value;
+  });
+
+  function showSuccessModal(paymentId, destination, amount) {
+    document.getElementById('pay-success-ref').textContent = 'TXN-' + paymentId.slice(-8).toUpperCase();
+    document.getElementById('psd-destination').textContent = destination || '—';
+    document.getElementById('psd-amount').textContent = '₹' + (amount || '5,000');
+    document.getElementById('pay-success-overlay').classList.add('active');
+  }
+
+  document.getElementById('pay-button').addEventListener('click', async function (e) {
+    e.preventDefault();
+    const form = document.getElementById('booking-form');
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+
+    const dest = document.getElementById('tb-dest').value;
+    const btn = document.getElementById('pay-button');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+    try {
+      const order = await fetch('/booking/create-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': document.querySelector('[name="_csrf"]').value },
+        body: JSON.stringify({ amount: 5000, destination: dest })
+      }).then(r => r.json());
+
+      if (!order || !order.id) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-lock"></i> Pay Deposit (₹5,000) & Book';
+        alert('Failed to create order. Please try again.');
+        return;
+      }
+
+      const options = {
+        key: '{{razorpayKeyId}}',
+        amount: order.amount,
+        currency: order.currency,
+        name: 'Travelo Trip Booking',
+        description: 'Trip Deposit for ' + dest,
+        order_id: order.id,
+        handler: async function (response) {
+          const data = Object.fromEntries(new FormData(form));
+          const res = await fetch('/booking/verify-save', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': data._csrf },
+            body: JSON.stringify({ ...data, ...response, totalAmount: order.amount / 100 })
+          });
+          if (res.ok) {
+            showSuccessModal(response.razorpay_payment_id, dest, '5,000');
+          } else {
+            const errData = await res.json().catch(() => ({}));
+            alert('Booking confirmation failed: ' + (errData.error || 'Contact support.'));
+          }
+        },
+        modal: {
+          ondismiss: function() {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-lock"></i> Pay Deposit (₹5,000) & Book';
+          }
+        },
+        prefill: {
+          email: document.getElementById('tb-email').value,
+          contact: document.getElementById('tb-phone').value,
+        },
+        theme: { color: '#29a5a3' },
+      };
+      new Razorpay(options).open();
+    } catch (err) {
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-lock"></i> Pay Deposit (₹5,000) & Book';
+      alert('Payment error. Please try again.');
+    }
+  });
+</script>

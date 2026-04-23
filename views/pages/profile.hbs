@@ -1,0 +1,327 @@
+{{#section 'styles'}}
+<style>
+    .profile-page {
+        min-height: 100vh;
+        padding: 10rem 5% 5rem;
+        background: #f8f9fa;
+    }
+
+    .profile-header {
+        display: flex;
+        align-items: center;
+        gap: 2.5rem;
+        background: linear-gradient(135deg, #29a5a3, #1d7a78);
+        border-radius: 1.5rem;
+        padding: 3rem;
+        color: white;
+        margin-bottom: 4rem;
+        box-shadow: 0 8px 30px rgba(41,165,163,0.3);
+    }
+
+    .profile-avatar-large {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.25);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: white;
+        border: 3px solid rgba(255,255,255,0.5);
+        flex-shrink: 0;
+    }
+
+    .profile-info h1 {
+        font-size: 2.8rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        text-transform: capitalize;
+    }
+
+    .profile-info p {
+        font-size: 1.6rem;
+        opacity: 0.85;
+        text-transform: none;
+    }
+
+    .bookings-section {
+        margin-bottom: 4rem;
+    }
+
+    .section-title {
+        font-size: 2.4rem;
+        font-weight: 700;
+        color: #222;
+        margin-bottom: 2.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .section-title i {
+        color: #29a5a3;
+    }
+
+    .bookings-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        gap: 2.5rem;
+    }
+
+    .booking-card {
+        background: #fff;
+        border-radius: 1.2rem;
+        padding: 2.5rem;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+        border-left: 5px solid #29a5a3;
+        transition: transform 0.2s, box-shadow 0.2s;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .booking-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    }
+
+    .booking-card.expired {
+        border-left-color: #aaa;
+        opacity: 0.75;
+    }
+
+    .booking-badge {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        padding: 0.4rem 1.2rem;
+        border-radius: 2rem;
+        font-size: 1.1rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .badge-confirmed {
+        background: #e8f8f5;
+        color: #1a9c7d;
+    }
+
+    .badge-expired {
+        background: #f0f0f0;
+        color: #888;
+    }
+
+    .booking-destination {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #222;
+        margin-bottom: 0.5rem;
+        padding-right: 8rem;
+        text-transform: capitalize;
+    }
+
+    .booking-type-label {
+        font-size: 1.2rem;
+        color: #29a5a3;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 1.5rem;
+    }
+
+    .booking-details {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .booking-detail-item label {
+        display: block;
+        font-size: 1.1rem;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.3rem;
+    }
+
+    .booking-detail-item span {
+        font-size: 1.4rem;
+        color: #333;
+        font-weight: 600;
+        text-transform: none;
+    }
+
+    .booking-amount {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .amount-label {
+        font-size: 1.3rem;
+        color: #888;
+    }
+
+    .amount-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #29a5a3;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        background: #fff;
+        border-radius: 1.2rem;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+
+    .empty-state i {
+        font-size: 5rem;
+        color: #ddd;
+        margin-bottom: 1.5rem;
+        display: block;
+    }
+
+    .empty-state p {
+        font-size: 1.6rem;
+        color: #aaa;
+        margin-bottom: 2rem;
+    }
+
+    @media (max-width: 768px) {
+        .profile-page {
+            padding: 9rem 4% 4rem;
+        }
+        .profile-header {
+            flex-direction: column;
+            text-align: center;
+            padding: 2.5rem 2rem;
+            gap: 1.5rem;
+        }
+        .bookings-grid {
+            grid-template-columns: 1fr;
+        }
+        .booking-details {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{{/section}}
+
+<div class="profile-page">
+    <!-- Profile Header -->
+    <div class="profile-header">
+        <div class="profile-avatar-large">{{nameInitial user.name}}</div>
+        <div class="profile-info">
+            <h1>{{user.name}}</h1>
+            <p><i class="fas fa-envelope" style="margin-right:0.6rem;"></i>{{user.email}}</p>
+        </div>
+    </div>
+
+    <!-- Trip Bookings -->
+    <div class="bookings-section">
+        <h2 class="section-title"><i class="fas fa-plane"></i> My Trip Bookings</h2>
+        {{#if hasTripBookings}}
+            <div class="bookings-grid">
+                {{#each tripBookings}}
+                <div class="booking-card {{#if isExpired}}expired{{/if}}">
+                    {{#if isExpired}}
+                        <span class="booking-badge badge-expired">Expired</span>
+                    {{else}}
+                        <span class="booking-badge badge-confirmed">Confirmed</span>
+                    {{/if}}
+                    <div class="booking-destination">{{destination}}</div>
+                    <div class="booking-type-label"><i class="fas fa-suitcase-rolling"></i> Trip Package</div>
+                    <div class="booking-details">
+                        <div class="booking-detail-item">
+                            <label>Arrival</label>
+                            <span>{{formattedArrival}}</span>
+                        </div>
+                        <div class="booking-detail-item">
+                            <label>Departure</label>
+                            <span>{{formattedDeparture}}</span>
+                        </div>
+                        <div class="booking-detail-item">
+                            <label>Guests</label>
+                            <span>{{guestCount}}</span>
+                        </div>
+                        <div class="booking-detail-item">
+                            <label>Contact</label>
+                            <span>{{email}}</span>
+                        </div>
+                    </div>
+                    {{#if totalAmount}}
+                    <div class="booking-amount">
+                        <span class="amount-label">Total Paid</span>
+                        <span class="amount-value">₹{{totalAmount}}</span>
+                    </div>
+                    {{/if}}
+                </div>
+                {{/each}}
+            </div>
+        {{else}}
+            <div class="empty-state">
+                <i class="fas fa-plane-slash"></i>
+                <p>No trip bookings yet.</p>
+                <a href="/#packages" class="btn">Explore Packages</a>
+            </div>
+        {{/if}}
+    </div>
+
+    <!-- Hotel Bookings -->
+    <div class="bookings-section">
+        <h2 class="section-title"><i class="fas fa-hotel"></i> My Hotel Bookings</h2>
+        {{#if hasHotelBookings}}
+            <div class="bookings-grid">
+                {{#each hotelBookings}}
+                <div class="booking-card {{#if isExpired}}expired{{/if}}">
+                    {{#if isExpired}}
+                        <span class="booking-badge badge-expired">Expired</span>
+                    {{else}}
+                        <span class="booking-badge badge-confirmed">Confirmed</span>
+                    {{/if}}
+                    <div class="booking-destination">{{hotelName}}</div>
+                    <div class="booking-type-label"><i class="fas fa-bed"></i> Hotel Stay</div>
+                    <div class="booking-details">
+                        <div class="booking-detail-item">
+                            <label>Check-in</label>
+                            <span>{{formattedCheckin}}</span>
+                        </div>
+                        <div class="booking-detail-item">
+                            <label>Check-out</label>
+                            <span>{{formattedCheckout}}</span>
+                        </div>
+                        <div class="booking-detail-item">
+                            <label>Guests</label>
+                            <span>{{hpnumber}}</span>
+                        </div>
+                        <div class="booking-detail-item">
+                            <label>Contact</label>
+                            <span>{{hconemail}}</span>
+                        </div>
+                    </div>
+                    {{#if totalAmount}}
+                    <div class="booking-amount">
+                        <span class="amount-label">Total Paid</span>
+                        <span class="amount-value">₹{{totalAmount}}</span>
+                    </div>
+                    {{/if}}
+                </div>
+                {{/each}}
+            </div>
+        {{else}}
+            <div class="empty-state">
+                <i class="fas fa-hotel"></i>
+                <p>No hotel bookings yet.</p>
+                <a href="/affordable-hotels" class="btn">Browse Hotels</a>
+            </div>
+        {{/if}}
+    </div>
+</div>

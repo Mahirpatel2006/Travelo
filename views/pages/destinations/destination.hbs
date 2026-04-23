@@ -1,0 +1,90 @@
+<style>
+/* ── Page-Specific Reset ── */
+.dest-hero, .dest-overview, .dest-gallery, .dest-content, .dest-cta { font-family: 'Inter', sans-serif; text-transform: none; }
+.dest-hero *, .dest-overview *, .dest-gallery *, .dest-content *, .dest-cta * { font-family: 'Inter', sans-serif; text-transform: none; }
+</style>
+
+<section class="dest-hero" style="background-image: url('{{pkg.coverImage}}')">
+  <div class="dest-hero__overlay"></div>
+  <div class="dest-hero__content">
+    <p class="dest-hero__eyebrow">Explore India</p>
+    <h1 class="dest-hero__title">{{pkg.name}}</h1>
+    {{#if pkg.tagline}}<p class="dest-hero__tagline">{{pkg.tagline}}</p>{{/if}}
+    <div class="dest-hero__meta">
+      {{#if pkg.location}}<span><i class="fas fa-map-marker-alt"></i> {{pkg.location}}</span>{{/if}}
+      {{#if pkg.duration}}<span><i class="fas fa-clock"></i> {{pkg.duration}}</span>{{/if}}
+      {{#if pkg.bestTime}}<span><i class="fas fa-calendar-alt"></i> Best: {{pkg.bestTime}}</span>{{/if}}
+      {{#if pkg.weather}}<span><i class="fas fa-thermometer-half"></i> {{pkg.weather}}</span>{{/if}}
+    </div>
+  </div>
+</section>
+
+<section class="dest-overview">
+  <div class="dest-overview__container">
+    <div class="dest-overview__left">
+      <span class="dest-section-badge">Overview</span>
+      <h2 class="dest-overview__heading">Why Visit {{pkg.name}}?</h2>
+      <p class="dest-overview__desc">{{pkg.description}}</p>
+      <ul class="dest-highlights">
+        {{#each pkg.highlights}}
+          <li class="dest-highlights__item"><i class="fas fa-check-circle"></i> {{this}}</li>
+        {{/each}}
+      </ul>
+    </div>
+    <div class="dest-overview__right">
+      <div class="dest-price-card">
+        <p class="dest-price-card__label">Package starts from</p>
+        <div class="dest-price-card__price">
+          ₹{{pkg.price}}
+          {{#if pkg.originalPrice}}<span class="dest-price-card__original">₹{{pkg.originalPrice}}</span>{{/if}}
+        </div>
+        <p class="dest-price-card__per">per person</p>
+        <a href="/booking/{{pkg.slug}}" class="dest-price-card__btn">Book This Trip</a>
+        <a href="/booking/hotel/{{pkg.slug}}" class="dest-price-card__btn dest-price-card__btn--outline">Book Hotels</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{#if pkg.images.length}}
+<section class="dest-gallery">
+  <div class="dest-gallery__grid">
+    {{#each pkg.images}}
+      <div class="dest-gallery__item">
+        <img src="{{this}}" alt="{{../pkg.name}} photo {{@index}}" loading="lazy">
+      </div>
+    {{/each}}
+  </div>
+</section>
+{{/if}}
+
+{{#if pkg.sections.length}}
+<section class="dest-content">
+  <div class="dest-content__container">
+    <span class="dest-section-badge">Discover</span>
+    <h2 class="dest-content__heading">Explore {{pkg.name}}</h2>
+    <div class="dest-content__sections">
+      {{#each pkg.sections}}
+        <div class="dest-content__block">
+          <div class="dest-content__block-number">{{addOne @index}}</div>
+          <div class="dest-content__block-body">
+            <h3 class="dest-content__block-heading">{{heading}}</h3>
+            <p class="dest-content__block-text">{{body}}</p>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+{{/if}}
+
+<section class="dest-cta">
+  <div class="dest-cta__container">
+    <h2 class="dest-cta__heading">Ready to Visit {{pkg.name}}?</h2>
+    <p class="dest-cta__sub">Starting from ₹{{pkg.price}} per person · {{pkg.duration}}</p>
+    <div class="dest-cta__actions">
+      <a href="/booking/{{pkg.slug}}" class="dest-cta__btn">Book Trip Now</a>
+      <a href="/reviews" class="dest-cta__btn dest-cta__btn--ghost">Read Reviews</a>
+    </div>
+  </div>
+</section>

@@ -1,272 +1,203 @@
 require('dotenv').config();
-require ("./db/conn")
-
-const Register = require("./models/register");
-const contact_info = require("./models/contact");
-const HotelContact = require("./models/hotels");
-// const Review = require ("./models/review")
 const express = require('express');
-const app = express();
+const { engine } = require('express-handlebars');
 const session = require('express-session');
+const compression = require('compression');
+const cors = require('cors');
+const morgan = require('morgan');
+let MongoStore = require('connect-mongo');
+if (MongoStore.default) MongoStore = MongoStore.default;
 const path = require('path');
-const port = process.env.PORT || 3000;
-const hbs = require ("hbs")
-hbs.registerPartials(__dirname+'/templates/partials');
-const Razorpay= require("razorpay")
-const razorpay = new Razorpay({
-  key_id :"rzp_test_yOwSqY2Ruq4ivb",
-  key_secret:"t6kBFBKDp9JWQzXoluIlohFd"
-})
+const connectDB = require('./src/config/database');
+const errorHandler = require('./src/middlewares/errorHandler');
+const logger = require('./src/utils/logger');
 
+// Route imports
+const authRoutes = require('./src/routes/authRoutes');
+const pageRoutes = require('./src/routes/pageRoutes');
+const bookingRoutes = require('./src/routes/bookingRoutes');
+const reviewRoutes = require('./src/routes/reviewRoutes');
 
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
+const cookieParser = require('cookie-parser');
+const csrf = require('csurf');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Middleware
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+      "script-src": ["'self'", "'unsafe-inline'", "https://checkout.razorpay.com", "https://cdn.botpress.cloud", "https://mediafiles.botpress.cloud", "https://cdn.auth0.com", "https://files.bpcontent.cloud"],
+      "frame-src": ["'self'", "https://api.razorpay.com", "https://checkout.razorpay.com", "https://cdn.botpress.cloud"],
+      "connect-src": ["'self'", "https://lumberjack-cx.razorpay.com", "https://api.razorpay.com", "https://*.botpress.cloud", "https://*.auth0.com", "https://files.bpcontent.cloud"],
+      "img-src": ["'self'", "data:", "https://*"],
+    },
+  },
+})); // Set security HTTP headers
+app.use(compression()); // Compress all responses
+
+// CORS — restrict in production
+const corsOptions = {
+  origin: process.env.CORS_ORIGIN || (process.env.NODE_ENV === 'production' ? false : true),
+  credentials: true,
+};
+app.use(cors(corsOptions));
+
+// Logging
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+} else {
+  app.use(morgan('combined', { stream: { write: message => logger.info(message.trim()) } }));
+}
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 500, // Increased to 500 to prevent issues during development
+  standardHeaders: true, 
+  legacyHeaders: false, 
+});
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser(process.env.SESSION_SECRET || 'fallback_secret_do_not_use_in_prod'));
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Apply the rate limiting middleware to dynamic routes only
+app.use(limiter); 
+
+const csrfProtection = csrf({ cookie: true });
+
+// Session config using MongoStore for persistence
 app.use(session({
+  secret: process.env.SESSION_SECRET || 'fallback_secret_do_not_use_in_prod',
   resave: false,
-  saveUninitialized: true,
-  secret:" process.env.SESSION_SECRET"
+  saveUninitialized: false,
+  store: MongoStore.create({ mongoUrl: process.env.DB_URI }),
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24, // 1 day
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+  }
 }));
 
+// Apply CSRF protection
+app.use(csrfProtection);
 
 
 
-
-
-app.use((req,res,next)=>{
-  res.locals.message = req.session.message;
-  delete req.session.message;
-  next();
-});
-
-app.set('view engine', 'hbs');
-// app.set('views', '/views');
-
-// app.use(express.static('public')); 
-// app.use(express.static(__dirname));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-const userRoutes = require('./routes/userRoute');
-const { Template } = require('hbs');
-const { log } = require('console');
-
-app.use('/', userRoutes);
-
-// app.get('/index', (req, res) => {
-//   console.log("gm");
-//   res.render("index");
-// });
-app.use(express.static(path.join(__dirname, 'templates')));
-app.get('/index', (req, res) => {
-  res.sendFile('index.html', { root: __dirname + '/templates' });
-});
-
-  app.use( express.static( __dirname + '/templates' ));
-  app.get('/about', (req, res) => {
-      res.sendFile('templates/about.html',{root: __dirname}); 
-    });
-
-
-
-  app.get('/goahotelsbooking', (req, res) => {
-      res.sendFile('templates/booking-goa.html',{root: __dirname}); 
-    });
-  app.get('/darjeelinghotelsbooking', (req, res) => {
-      res.sendFile('templates/booking-darjeeling.html',{root: __dirname}); 
-    });
-  app.get('/udaipurhotelsbooking', (req, res) => {
-      res.sendFile('templates/booking-udaipur.html',{root: __dirname}); 
-    });
-  app.get('/varansihotelsbooking', (req, res) => {
-      res.sendFile('templates/booking-varansi.html',{root: __dirname}); 
-    });
-  app.get('/manalihotelsbooking', (req, res) => {
-      res.sendFile('templates/booking-manali.html',{root: __dirname}); 
-    });
-  app.get('/ootyhotelsbooking', (req, res) => {
-      res.sendFile('templates/booking-ooty.html',{root: __dirname}); 
-    });
-  app.get('/affordablehotel', (req, res) => {
-      res.sendFile('templates/affordable-hotel.html',{root: __dirname}); 
-    });
-  // app.use( express.static( __dirname + '/templates' ));
-  // app.get('/contact', (req, res) => {
-  //     res.sendFile('templates/contact.html',{root: __dirname});  
-  //   });
-
-
-  app.set("views",__dirname +"/templates/views")
-
-
-  app.get('/form', (req, res) => {
-      res.render("auth") 
-    });
-    app.post('/form', async(req, res) => {
-      try {
-        // const register = new Register(req.body);
-        // await register.save();
-        // res.redirect('/index');
-        // alert(`Thank you for registering by, ${req.body.email}!`);
-        const password = req.body.password;
-        const cpassword = req.body.cpassword;
-
-        if (password === cpassword){
-   
-        const customer = new Register({
-          email : req.body.email,
-          password : req.body.password,
-          cpassword : req.body.cpassword
-
-
-        })
-       const c_info = await customer.save();
-       res.redirect("/index");
-
-
-        }else{
-          res.send("password are not matching")
-        }
-
-        
-      } catch(error) {
-        res.status(400).send(error);
-      }
-    });
-
-
-
-
-  app.get("/contact",(req,res)=>{
-    res.render("contact")
-  });
-  app.post("/contact",async(req,res)=>{
-    try{
-      const contact = new contact_info({
-        name:req.body.name,
-        pnumber:req.body.pnumber,
-        adate:req.body.adate,
-        lday:req.body.lday,
-        conemail:req.body.conemail,
-        connumber:req.body.connumber
-    })
-    const con_info = await contact.save();
-    res.redirect("/index")
-  }
-    catch(error){
-      
-      res.status(400).send(error);
-
-    }
-   
-  });
-
-
-
-
-  app.get("/hotelcontact",(req,res)=>{
-    res.render("hotelcontact")
-  });
-  app.post("/hotelcontact", async (req, res) => {
+// Global template variables
+app.use(async (req, res, next) => {
   try {
-    
-const hotelcontact = new HotelContact({
-  hname: req.body.hname,
-  hpnumber: req.body.hpnumber,
-  hadate: req.body.hadate,
-  hlday: req.body.hlday,
-  hconemail: req.body.hconemail,
-  hconnumber: req.body.hconnumber
-});
-const hotelContactResult = await hotelcontact.save();
-    res.redirect("/index");
-  } catch (error) {
-    console.error(error);
-    res.status(400).send(error);
+    if (req.session?.userId) {
+      const User = require('./src/models/User');
+      req.user = await User.findById(req.session.userId).lean();
+    }
+    res.locals.user = req.user || null;
+    res.locals.csrfToken = req.csrfToken();
+    next();
+  } catch (err) {
+    next(err);
   }
 });
-   
- 
 
+// Handlebars view engine setup
+app.engine('.hbs', engine({
+  extname: '.hbs',
+  defaultLayout: 'main',
+  layoutsDir: path.join(__dirname, 'views', 'layouts'),
+  partialsDir: path.join(__dirname, 'views', 'partials'),
+  helpers: {
+    section: function(name, options) {
+      if(!this._sections) this._sections = {};
+      this._sections[name] = options.fn(this);
+      return null;
+    },
+    addOne: (value) => parseInt(value) + 1,
+    // Returns the first character of a name (for avatar initials)
+    nameInitial: (name) => (name && name.length > 0) ? name.charAt(0).toUpperCase() : '?',
+    // Repeats a block N times (used for star ratings)
+    times: (n, options) => {
+      let result = '';
+      for (let i = 0; i < (parseInt(n) || 0); i++) result += options.fn(i);
+      return result;
+    },
+    // Returns first truthy value (logical OR for HBS)
+    or: (...args) => args.slice(0, -1).find(Boolean),
+  },
+}));
+app.set('view engine', '.hbs');
+app.set('views', path.join(__dirname, 'views'));
 
-
-
-
-  
-
-
-
-
-   app.use("",require("./routes/revRoute"))
-
-  // app.get("/reviews",(req,res)=>{
-  //   res.render("reviews")
-  // });
-
-
-
-
-
-
-
-
-
-
-
-  app.post('/contact', (req, res) => {
-    let options = {
-      amount: 50000, 
-      currency: "INR"
-    };
-    razorpay.order.create(options, function(err, order) {
-      if (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Failed to create order' });
-      } else {
-        console.log(order);
-        res.json(order);
-      }
-    });
+// Health Check Endpoint (for monitoring / uptime checks)
+app.get('/api/health', (req, res) => {
+  res.status(200).json({
+    status: 'ok',
+    uptime: process.uptime(),
+    timestamp: new Date().toISOString(),
   });
+});
 
-  // app.use("",require("./routes/payRoute"))
+// Routes
+app.use('/', pageRoutes);
+app.use('/auth', authRoutes);
+app.use('/booking', bookingRoutes);
+app.use('/reviews', reviewRoutes);
+app.get('/form', (req, res) => res.redirect('/auth'));
 
+// 404 Handler
+app.use((req, res) => {
+  res.status(404).render('pages/404', { title: 'Page Not Found | Travelo' });
+});
 
-  
-  app.post('/hotelcontact', (req, res) => {
-    let options = {
-      amount: 50000, 
-      currency: "INR"
-    };
-    razorpay.order.create(options, function(err, order) {
-      if (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Failed to create order' });
-      } else {
-        console.log(order);
-        res.json(order);
-      }
+// Error Handler (must be last)
+app.use(errorHandler);
+
+// Graceful shutdown handling
+let server;
+
+const startServer = async () => {
+  try {
+    await connectDB();
+    server = app.listen(PORT, () => {
+      logger.info(`Server running on port ${PORT}`);
     });
-  });
+  } catch (err) {
+    logger.error('Failed to start server:', err);
+    process.exit(1);
+  }
+};
 
+startServer();
 
+process.on('SIGTERM', () => {
+  logger.info('SIGTERM signal received: closing HTTP server');
+  if (server) {
+    server.close(() => {
+      logger.info('HTTP server closed');
+      process.exit(0);
+    });
+  } else {
+    process.exit(0);
+  }
+});
 
+process.on('SIGINT', () => {
+  logger.info('SIGINT signal received: closing HTTP server');
+  if (server) {
+    server.close(() => {
+      logger.info('HTTP server closed');
+      process.exit(0);
+    });
+  } else {
+    process.exit(0);
+  }
+});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-app.listen(port, () => {
-  console.log(`Server Running on port ${port}`);
+// Catch unhandled rejections
+process.on('unhandledRejection', (reason, promise) => {
+  logger.error('Unhandled Rejection at:', promise, 'reason:', reason);
 });

@@ -1,0 +1,143 @@
+<div class="err-page">
+  <div class="err-container">
+    <div class="err-content">
+      <div class="err-visual">
+        <h1 class="err-code">404</h1>
+        <div class="err-circle"></div>
+      </div>
+      
+      <h2 class="err-heading">You've Found an Uncharted Territory</h2>
+      <p class="err-text">
+        It seems the destination you're looking for isn't on our current itinerary. 
+        Don't worry, even the most seasoned explorers take a wrong turn sometimes.
+      </p>
+      
+      <div class="err-actions">
+        <a href="/" class="err-btn err-btn--primary">
+          <i class="fas fa-home"></i> Back to Home
+        </a>
+        <a href="/about" class="err-btn err-btn--outline">
+          <i class="fas fa-envelope"></i> Contact Support
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* ── Page-Specific Reset ── */
+
+body { font-family: 'Inter', sans-serif !important; text-transform: none !important; background: #f9fbfc !important; }
+
+
+
+.err-page {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6.4rem 3.2rem;
+}
+
+.err-container {
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
+
+.err-visual {
+  position: relative;
+  margin-bottom: 3.2rem;
+}
+
+.err-code {
+  font-family: 'Playfair Display', serif;
+  font-size: 19.2rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #29a5a3;
+  margin: 0;
+  position: relative;
+  z-index: 2;
+  letter-spacing: -4px;
+  background: linear-gradient(135deg, #29a5a3 0%, #1e7a78 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.err-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+  background: rgba(41, 165, 163, 0.05);
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.err-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem;
+  color: #1a202c;
+  margin-bottom: 2.4rem;
+}
+
+.err-text {
+  font-size: 1.76rem;
+  color: #4a5568;
+  line-height: 1.8;
+  margin-bottom: 4.8rem;
+}
+
+.err-actions {
+  display: flex;
+  gap: 2.4rem;
+  justify-content: center;
+}
+
+.err-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.28rem;
+  padding: 1.6rem 4rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1.68rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+}
+
+.err-btn--primary {
+  background: #29a5a3;
+  color: white;
+  box-shadow: 0 4px 14px rgba(41, 165, 163, 0.25);
+}
+
+.err-btn--primary:hover {
+  background: #1e7a78;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(41, 165, 163, 0.3);
+}
+
+.err-btn--outline {
+  background: white;
+  color: #4a5568;
+  border: 2px solid #e2e8f0;
+}
+
+.err-btn--outline:hover {
+  background: #f8fafc;
+  border-color: #cbd5e0;
+  color: #2d3748;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 640px) {
+  .err-code { font-size: 12.8rem; }
+  .err-heading { font-size: 3.2rem; }
+  .err-actions { flex-direction: column; gap: 1.6rem; }
+  .err-btn { width: 100%; justify-content: center; }
+}
+</style>

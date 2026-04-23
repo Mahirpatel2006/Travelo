@@ -1,0 +1,466 @@
+{{#section 'styles'}}
+<style>
+/* Reset and global adjustments specifically for about page */
+.about-hero {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: white;
+    margin-top: -80px; /* Offset the navbar if it's fixed/absolute, adjust if necessary */
+}
+
+.about-hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.8) 100%), url('/images/about/aboutus.jpg') center/cover no-repeat;
+    z-index: -1;
+    animation: zoomOut 15s ease-in-out infinite alternate;
+}
+
+@keyframes zoomOut {
+    0% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.about-hero-content {
+    text-align: center;
+    z-index: 1;
+    padding: 0 2rem;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1.5s ease forwards 0.5s;
+}
+
+.about-hero-content h1 {
+    font-size: 8rem;
+    font-weight: 800;
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    background: linear-gradient(to right, #fff, #a0eceb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.about-hero-content p {
+    font-size: 2.2rem;
+    font-weight: 300;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+    color: #f8f9fa;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Our Story Section */
+.story-section {
+    padding: 10rem 7%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    gap: 6rem;
+    flex-wrap: wrap;
+}
+
+.story-img-wrapper {
+    flex: 1 1 40rem;
+    position: relative;
+}
+
+.story-img {
+    width: 100%;
+    border-radius: .8rem;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    transition: transform 0.5s ease;
+}
+
+.story-img-wrapper:hover .story-img {
+    transform: translateY(-10px);
+}
+
+.story-img-badge {
+    position: absolute;
+    bottom: -30px;
+    right: -30px;
+    background: var(--blue, #29a5a3);
+    color: white;
+    padding: 3rem;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 20px rgba(41, 165, 163, 0.4);
+    animation: float 4s ease-in-out infinite;
+}
+
+.story-img-badge h3 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin: 0;
+}
+
+.story-img-badge span {
+    font-size: 1.4rem;
+    text-align: center;
+    line-height: 1.2;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+.story-content {
+    flex: 1 1 40rem;
+}
+
+.story-content .subtitle {
+    color: var(--blue, #29a5a3);
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.story-content h2 {
+    font-size: 4.5rem;
+    font-family: 'Playfair Display', serif;
+    color: #1a202c;
+    margin-bottom: 3rem;
+    line-height: 1.2;
+}
+
+.story-content p {
+    font-size: 1.7rem;
+    color: #4a5568;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+}
+
+/* Values Section with Glassmorphism */
+.values-section {
+    padding: 10rem 7%;
+    background: #f8f9fa;
+    position: relative;
+    overflow: hidden;
+}
+
+.values-section::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 300px;
+    height: 300px;
+    background: var(--blue, #29a5a3);
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.1;
+}
+
+.values-header {
+    text-align: center;
+    margin-bottom: 6rem;
+}
+
+.values-header h2 {
+    font-size: 4.5rem;
+    font-family: 'Playfair Display', serif;
+    color: #1a202c;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 4rem;
+    position: relative;
+    z-index: 1;
+}
+
+.value-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 4rem 3rem;
+    border-radius: .8rem;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: all 0.4s ease;
+}
+
+.value-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(41, 165, 163, 0.15);
+    background: white;
+}
+
+.value-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(41, 165, 163, 0.1);
+    color: var(--blue, #29a5a3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem;
+    margin: 0 auto 2.5rem;
+    transition: all 0.4s ease;
+}
+
+.value-card:hover .value-icon {
+    background: var(--blue, #29a5a3);
+    color: white;
+    transform: rotateY(360deg);
+}
+
+.value-card h3 {
+    font-size: 2.4rem;
+    color: #1a202c;
+    margin-bottom: 1.5rem;
+}
+
+.value-card p {
+    font-size: 1.6rem;
+    color: #4a5568;
+    line-height: 1.6;
+}
+
+/* Call to action */
+.about-cta {
+    padding: 8rem 7%;
+    text-align: center;
+    background: linear-gradient(135deg, var(--blue, #29a5a3) 0%, #1c7b79 100%);
+    color: white;
+}
+
+.about-cta h2 {
+    font-size: 4rem;
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 2rem;
+}
+
+.about-cta p {
+    font-size: 1.8rem;
+    margin-bottom: 4rem;
+    opacity: 0.9;
+}
+
+.cta-btn {
+    display: inline-block;
+    padding: 1.5rem 4rem;
+    background: white;
+    color: var(--blue, #29a5a3);
+    font-size: 1.8rem;
+    font-weight: 700;
+    border-radius: .5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.cta-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+    color: #1c7b79;
+}
+
+/* Responsive Design */
+@media (max-width: 991px) {
+    .about-hero-content h1 { font-size: 6rem; }
+    .story-section { padding: 8rem 3%; flex-direction: column; }
+    .story-img-badge { right: 0; bottom: -20px; width: 120px; height: 120px; }
+    .story-img-badge h3 { font-size: 2.5rem; }
+    .story-content h2 { font-size: 3.5rem; }
+}
+
+@media (max-width: 768px) {
+    .about-hero-content h1 { font-size: 4.5rem; }
+    .about-hero-content p { font-size: 1.8rem; }
+    .values-grid { grid-template-columns: 1fr; }
+    .about-cta h2 { font-size: 3rem; }
+}
+
+@media (max-width: 480px) {
+    .about-hero-content h1 { font-size: 3.5rem; }
+    .story-content h2 { font-size: 3rem; }
+    .value-card { padding: 3rem 2rem; }
+}
+
+/* Footer styles for about page */
+.footer {
+    background: #0f172a url('/images/footer-bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    padding-top: 5rem;
+    padding-bottom: 2rem;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: #e9f6f6cf;
+    z-index: 1;
+}
+
+.footer .box-container {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    gap: 3rem;
+    padding: 2rem 7%;
+}
+
+.footer .box-container .box h3 {
+    font-size: 2.2rem;
+    color: #29a5a3;
+    padding: 1.5rem 0;
+    font-family: 'Playfair Display', serif;
+}
+
+.footer .box-container .box a {
+    font-size: 1.4rem;
+    color: #4a5568;
+    padding: 0.8rem 0;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.footer .box-container .box a:hover {
+    color: #29a5a3;
+    padding-left: 10px;
+}
+
+.footer .box-container .box a i {
+    padding-right: 1rem;
+    color: #29a5a3;
+}
+
+.footer .credit {
+    position: relative;
+    z-index: 2;
+    font-size: 1.6rem;
+    text-align: center;
+    border-top: .1rem solid rgba(0, 0, 0, 0.1);
+    padding: 2rem 1rem;
+    margin-top: 4rem;
+    color: #4a5568;
+}
+
+.footer .credit span {
+    color: #29a5a3;
+    font-weight: 600;
+}
+</style>
+{{/section}}
+
+<!-- Hero Section -->
+<section class="about-hero">
+    <div class="about-hero-content">
+        <h1>Discover Travelo</h1>
+        <p>We don't just plan trips; we craft unforgettable experiences that touch your soul and expand your horizons.</p>
+    </div>
+</section>
+
+<!-- Our Story Section -->
+<section class="story-section">
+    <div class="story-img-wrapper">
+        <img src="/images/about/about-1.jpg" alt="Our Story" class="story-img">
+        <div class="story-img-badge">
+            <h3>10+</h3>
+            <span>Years of<br>Excellence</span>
+        </div>
+    </div>
+    <div class="story-content">
+        <span class="subtitle">Our Story</span>
+        <h2>Redefining the Art of Global Exploration</h2>
+        <p>At Travelo, we believe that traveling is more than just visiting new places—it's about creating lasting memories, embracing diverse cultures, and finding inspiration in the world's wonders.</p>
+        <p>Founded by a group of passionate globetrotters, our mission has always been to make premium travel accessible and deeply personal. We curate journeys that resonate with your spirit of adventure.</p>
+        <p>From the vibrant energy of bustling cities to the serene beauty of hidden gems, our diverse range of destinations is meticulously selected to captivate your heart and soul.</p>
+    </div>
+</section>
+
+<!-- Values Section -->
+<section class="values-section">
+    <div class="values-header">
+        <h2>Why Choose Us</h2>
+    </div>
+    <div class="values-grid">
+        <div class="value-card">
+            <div class="value-icon">
+                <i class="fas fa-map-marked-alt"></i>
+            </div>
+            <h3>Curated Destinations</h3>
+            <p>Every location we offer is handpicked and verified by our travel experts to ensure you get the absolute best experience.</p>
+        </div>
+        <div class="value-card">
+            <div class="value-icon">
+                <i class="fas fa-headset"></i>
+            </div>
+            <h3>24/7 Dedicated Support</h3>
+            <p>Your peace of mind is our priority. Our global support team is available around the clock wherever your journey takes you.</p>
+        </div>
+        <div class="value-card">
+            <div class="value-icon">
+                <i class="fas fa-wallet"></i>
+            </div>
+            <h3>Unbeatable Value</h3>
+            <p>We leverage our global partnerships to bring you premium, luxury experiences at incredibly competitive and transparent prices.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="about-cta">
+    <h2>Ready to Start Your Adventure?</h2>
+    <p>Join thousands of happy travelers and let us plan the trip of a lifetime for you.</p>
+    <a href="/contact" class="cta-btn">Book Now</a>
+</section>
+
+<!-- Footer -->
+<section class="footer">
+    <div class="box-container">
+        <div class="box">
+            <h3>contact<br></h3>
+            <a href="#"> <i class="fas fa-phone"></i> +123-4567-8912</a>
+            <a href="#"><i class="fas fa-envelope"></i> info@travelo.com</a>
+            <a href="#"><i class="fas fa-map"></i> Mehsana, Gujarat, India</a>
+        </div>
+        <div class="box">
+            <h3>quick links</h3>
+            <a href="/"><i class="fas fa-arrow-right"></i> home</a>
+            <a href="/about"><i class="fas fa-arrow-right"></i> about us</a>
+            <a href="/destinations"><i class="fas fa-arrow-right"></i> destinations</a>
+            <a href="/affordable-hotels"><i class="fas fa-arrow-right"></i> affordable hotels</a>
+        </div>
+        <div class="box">
+            <h3>legal information</h3>
+            <a href="#"><i class="fas fa-arrow-right"></i> terms and conditions</a>
+            <a href="#"><i class="fas fa-arrow-right"></i> privacy policy</a>
+            <a href="#"><i class="fas fa-arrow-right"></i> refund policy</a>
+        </div>
+    </div>
+    <div class="credit"> created by <span>Mahir Patel</span> | all rights reserved </div>
+</section>

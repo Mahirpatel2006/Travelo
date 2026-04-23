@@ -1,0 +1,1217 @@
+{{#section 'styles'}}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
+
+    :root {
+        --blue: #29a5a3;
+    }
+
+    * {
+        font-family: 'Nunito', sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        outline: none;
+        border: none;
+        text-decoration: none;
+        text-transform: capitalize;
+        transition: all .2s linear;
+    }
+
+    html {
+        font-size: 62.5%;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+        scroll-padding-top: 4rem;
+    }
+
+    html::-webkit-scrollbar {
+        width: 1rem;
+    }
+
+    html::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    html::-webkit-scrollbar-thumb {
+        background: var(--blue);
+        border-radius: 5rem;
+    }
+
+    section {
+        padding: 2rem 7%;
+    }
+
+    .heading {
+        text-align: center;
+        font-size: 4rem;
+        margin: 2rem 0;
+        color: var(--blue);
+    }
+
+    .btn {
+        display: inline-block;
+        margin-top: 2rem;
+        background: var(--blue);
+        color: #fff;
+        padding: .8rem 2.2rem;
+        border: .2rem solid var(--blue);
+        cursor: pointer;
+        font-size: 1.7rem;
+        border-radius: .5rem;
+    }
+
+    .btn:hover {
+        color: var(--blue);
+        background: rgba(41, 165, 163, .2);
+    }
+
+    /* header */
+
+    .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: #fff;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 2rem 9%;
+        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
+    }
+
+    .header .logo {
+        font-size: 2.5rem;
+        font-weight: bolder;
+        color: var(--blue);
+        text-transform: uppercase;
+    }
+
+    .header .navbar a {
+        color: #333;
+        font-size: 2rem;
+        margin: 0 .8rem;
+        text-decoration: none;
+    }
+
+    .header .navbar a:hover {
+        color: var(--blue);
+    }
+
+    .header .navbar #close-navbar {
+        position: absolute;
+        top: 1.5rem;
+        left: 2rem;
+        font-size: 4rem;
+        cursor: pointer;
+        color: #444;
+        display: none;
+    }
+
+    .header .navbar #close-navbar:hover {
+        transform: rotate(90deg);
+    }
+
+    .header .btn {
+        margin-top: 0;
+    }
+
+    #menu-btn {
+        color: #333;
+        border: .1rem solid #333;
+        font-size: 3rem;
+        padding: .5rem 1.2rem;
+        border-radius: .5rem;
+        cursor: pointer;
+        display: none;
+    }
+
+    /* end */
+
+    /* home */
+
+    .home {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 0;
+        position: relative;
+    }
+
+    .home .content {
+        text-align: center;
+    }
+
+    .home .content h3 {
+        font-size: 4.5rem;
+        color: #fff;
+        text-transform: uppercase;
+        text-shadow: 0 .3rem .5rem rgba(0, 0, 0, 0.2);
+    }
+
+    .home .content p {
+        font-size: 2.5rem;
+        color: #fff;
+        padding: .5rem 0;
+    }
+
+    .home .video-container video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    /* end */
+
+    /* about */
+
+    .about .container {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 4rem;
+        margin-top: 5rem;
+    }
+
+    .about .container .image-container {
+        flex: 1 1 42rem;
+    }
+
+    .about .container .image-container .image {
+        border-radius: 1rem;
+        width: 100%;
+    }
+
+    .about .container .image-container .controls {
+        text-align: center;
+        padding: 2rem 0;
+    }
+
+    .about .container .image-container .controls span {
+        display: inline-block;
+        height: 2rem;
+        width: 2rem;
+        border-radius: 50%;
+        background: var(--blue);
+        cursor: pointer;
+        margin: .7rem;
+    }
+
+    .about .container .image-container .controls span:hover {
+        background: rgba(41, 165, 163, .2);
+    }
+
+    .about .container .content {
+        flex: 1 1 42rem;
+        margin-bottom: 8rem;
+    }
+
+    .about .container .content span {
+        color: var(--blue);
+        font-size: 2rem;
+    }
+
+    .about .container .content h3 {
+        color: #333;
+        font-size: 4rem;
+        margin-top: .5rem;
+    }
+
+    .about .container .content p {
+        font-size: 1.4rem;
+        padding: 1rem 0;
+        color: #666;
+        line-height: 2;
+    }
+
+    /* end */
+
+    /* services */
+
+    .services .box-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(27rem, 1fr));
+        gap: 1.5rem;
+    }
+
+    .services .box-container .box {
+        text-align: center;
+        padding: 3rem 2rem;
+    }
+
+    .services .box-container .box:hover {
+        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
+        border-radius: 1rem;
+    }
+
+    .services .box-container .box img {
+        height: 20rem;
+        display: block;
+        margin: 0 auto 1.5rem;
+    }
+
+    .services .box-container .box h3 {
+        font-size: 2.2rem;
+        padding: 1.5rem 0;
+    }
+
+    .services .box-container .box p {
+        font-size: 1.7rem;
+        line-height: 2;
+    }
+
+    /* end */
+
+    /* packages */
+
+    .packages .box-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4rem;
+    }
+
+    .packages .box-container .box {
+        flex: 1 1 30rem;
+        border-radius: .5rem;
+        overflow: hidden;
+        box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+    }
+
+    .packages .box-container .box .image {
+        height: 25rem;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .packages .box-container .box .image img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .packages .box-container .box:hover .image img {
+        transform: scale(1.1);
+    }
+
+    .packages .box-container .box .content {
+        text-align: center;
+        padding: 2rem;
+    }
+
+    .packages .box-container .box .content h3 {
+        font-size: 2rem;
+        color: var(--blue);
+    }
+
+    .packages .box-container .box .content .price {
+        font-size: 2rem;
+        color: #333;
+        padding-top: 1rem;
+    }
+
+    .packages .box-container .box .content .price span {
+        color: var(--blue);
+        font-size: 1.5rem;
+        text-decoration: line-through;
+    }
+
+    .packages .box-container .box .content p {
+        font-size: 1.7rem;
+        color: #666;
+        padding: 1rem 0;
+    }
+
+    /* end */
+
+    /* gallery */
+
+    .gallery .box-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+    }
+
+    .gallery .box-container .box {
+        flex: 1 1 36rem;
+        height: 28rem;
+        overflow: hidden;
+        box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+        border: 1rem solid #fff;
+        border-radius: .5rem;
+    }
+
+    .gallery .box-container .box img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .gallery .box-container .box:hover img {
+        transform: scale(1.1);
+    }
+
+    /* end */
+
+    /* book */
+
+    .book .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3rem;
+        align-items: center;
+    }
+
+    .book .row form {
+        flex: 1 1 40rem;
+        padding: 2rem;
+        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
+        border-radius: .5rem;
+    }
+
+    .book .row form .inputBox {
+        padding: .5rem 0;
+    }
+
+    .book .row form .inputBox input {
+        width: 100%;
+        padding: 1rem;
+        border: .1rem solid rgba(0, 0, 0, 0.1);
+        font-size: 1.7rem;
+        color: #666;
+        text-transform: none;
+    }
+
+    .book .row form .inputBox h3 {
+        font-size: 2rem;
+        padding: 1rem 0;
+        color: #333;
+    }
+
+    .book .row .container .slide-container {
+        flex: 1 1 40rem;
+        max-width: 60rem;
+    }
+
+    .book .row .container .slide-container .slide {
+        text-align: center;
+        padding: 2rem;
+        display: none;
+    }
+
+    .book .row .container .slide-container .slide.active {
+        display: block;
+    }
+
+    .book .row .container .slide-container .slide .quote {
+        padding-bottom: 3rem;
+
+    }
+
+    .book .row .container .slide-container .slide p {
+        padding: 1.4rem 0;
+        font-size: 2rem;
+        line-height: 2;
+        color: #666;
+        animation: fadeUp .2s linear backwards;
+    }
+
+    .book .row .container .slide-container .slide .images {
+        height: 10rem;
+        width: 10rem;
+        border-radius: 50%;
+        object-fit: cover;
+        animation: fadeUp .2s linear .4s backwards;
+    }
+
+    .book .row .container .slide-container .slide h3 {
+        padding: 1rem 0;
+        font-size: 2rem;
+        color: var(--blue);
+        animation: fadeUp .2s linear .6s backwards;
+    }
+
+    .book .row .container .slide-container .slide .stars i {
+        font-size: 1.5rem;
+        color: gold;
+        animation: fadeUp .2s linear .8s backwards;
+    }
+
+    .book .controls {
+        text-align: center;
+    }
+
+    .book .controls div {
+        font-size: 5rem;
+        cursor: pointer;
+        margin: 0 1rem;
+        color: var(--blue);
+    }
+
+    .book .controls div:hover {
+        transform: scale(1.1);
+    }
+
+    @keyframes fadeUp {
+        0% {
+            opacity: 0;
+            transform: translateY(4rem);
+        }
+    }
+
+    /* end */
+
+    /* newsletter */
+
+    .newsletter {
+        background: rgba(41, 165, 163, .1);
+    }
+
+    .newsletter .content {
+        text-align: center;
+        max-width: 60rem;
+        margin: 1rem auto;
+    }
+
+    .newsletter .content h3 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: var(--blue);
+    }
+
+    .newsletter .content p {
+        font-size: 1.7rem;
+        padding: 1rem 0;
+        color: #666;
+        line-height: 2;
+    }
+
+    .newsletter .content p a {
+        color: var(--blue);
+    }
+
+    .newsletter .content p a:hover {
+        text-decoration: underline;
+    }
+
+    .newsletter .content form {
+        display: flex;
+        align-items: center;
+        border: .2rem solid var(--blue);
+        border-radius: .5rem;
+        padding: .5rem;
+        margin: 1.5rem auto;
+        background: #fff;
+        max-width: 70rem;
+    }
+
+    .newsletter .content form .email {
+        width: 100%;
+        padding: .8rem 1.5rem;
+        font-size: 1.4rem;
+        color: #333;
+        text-transform: none;
+        background: none;
+    }
+
+    .newsletter .content form .btn {
+        margin-top: 0;
+        border-radius: .5rem;
+        padding: .8rem 2rem;
+        font-size: 1.4rem;
+    }
+
+    /* end */
+
+    /* footer */
+
+    .footer {
+        background: #0f172a url('/images/footer-bg.png');
+        /* Dark base to make pattern stand out */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: relative;
+        padding-top: 5rem;
+        padding-bottom: 2rem;
+    }
+
+    .footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #e9f6f6cf;
+        /* Light shade overlay */
+        z-index: 1;
+    }
+
+    .footer .box-container {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+        gap: 3rem;
+    }
+
+    .footer .box-container .box {
+        padding: 1rem 0;
+    }
+
+    .footer .box-container .box h3 {
+        font-size: 2.2rem;
+        color: #29a5a3;
+        padding: 1.5rem 0;
+        font-family: 'Playfair Display', serif;
+        letter-spacing: 1px;
+    }
+
+    .footer .box-container .box a {
+        font-size: 1.4rem;
+        color: #4a5568;
+        /* Darker text for light theme */
+        padding: 0.8rem 0;
+        line-height: 1.5;
+        cursor: pointer;
+        display: block;
+        transition: all 0.3s ease;
+    }
+
+    .footer .box-container .box a:hover {
+        color: #29a5a3;
+        padding-left: 10px;
+    }
+
+    .footer .box-container .box a i {
+        padding-right: 1rem;
+        color: #29a5a3;
+    }
+
+    .footer .credit {
+        position: relative;
+        z-index: 2;
+        font-size: 1.6rem;
+        text-align: center;
+        border-top: .1rem solid rgba(0, 0, 0, 0.1);
+        /* Darker border for light theme */
+        padding: 2rem 1rem;
+        margin-top: 4rem;
+        color: #4a5568;
+    }
+
+    .footer .credit span {
+        color: #29a5a3;
+        font-weight: 600;
+    }
+
+    /* end */
+
+
+
+
+
+
+    /* ── Responsive (mirrors main.css – inline-page overrides only) ── */
+
+    @media(max-width:991px) {
+        html {
+            font-size: 55%;
+        }
+
+        .header {
+            padding: 1.5rem 2rem;
+        }
+
+        section {
+            padding: 2rem 3%;
+        }
+
+        .book .row .container .slide-container {
+            max-width: 100%;
+            justify-content: center;
+        }
+
+        .footer .box-container {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media(max-width:768px) {
+        html {
+            font-size: 52%;
+        }
+
+        #menu-btn {
+            display: inline-block;
+        }
+
+        .header .navbar {
+            position: fixed;
+            top: 0;
+            left: -110%;
+            width: 75vw;
+            max-width: 30rem;
+            background: #fff;
+            height: 100%;
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+            z-index: 1200;
+            transition: left .3s ease;
+        }
+
+        .header .navbar.active {
+            left: 0;
+            box-shadow: 0 0 0 100vw rgba(0, 0, 0, 0.5);
+        }
+
+        .header .navbar #close-navbar {
+            display: block;
+        }
+
+        .header .navbar a {
+            display: block;
+            margin: 1.2rem 0;
+            text-align: center;
+            font-size: 2.2rem;
+        }
+
+        .header .btn {
+            display: none;
+        }
+
+        /* Home hero */
+        .home .content h3 {
+            font-size: 3rem;
+        }
+
+        .home .content p {
+            font-size: 1.8rem;
+        }
+
+        /* Packages & Gallery — single column */
+        .packages .box-container {
+            flex-direction: column;
+        }
+
+        .packages .box-container .box {
+            flex: 1 1 100%;
+        }
+
+        /* Review slider — reset absolute positioning */
+        .book .row .container .slide-container .slide.active {
+            position: static;
+            left: auto;
+            bottom: auto;
+        }
+
+        /* Footer — single column */
+        .footer .box-container {
+            grid-template-columns: 1fr;
+        }
+
+        /* Buttons */
+        .pkg-btn-group {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .pkg-btn-group .btn {
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Newsletter */
+        .newsletter .content form {
+            flex-direction: column;
+            border-radius: 1rem;
+            background: transparent;
+            border: none;
+            padding: 0;
+        }
+
+        .newsletter .content form .email {
+            background: #fff;
+            border: 1rem solid var(--blue);
+            border-radius: 1rem;
+
+        }
+
+        .newsletter .content form .btn {
+            width: 100%;
+            border-radius: 1rem;
+        }
+    }
+
+    @media(max-width:480px) {
+        html {
+            font-size: 48%;
+        }
+
+        section {
+            padding: 1.5rem 4%;
+        }
+
+        .home .content h3 {
+            font-size: 2.4rem;
+        }
+
+        .home .content p {
+            font-size: 1.6rem;
+        }
+
+        .footer .box-container {
+            gap: 1.5rem;
+        }
+
+        .footer .credit {
+            font-size: 1.3rem;
+            margin-top: 2rem;
+        }
+    }
+
+    .g-signin2 {
+        position: relative;
+        left: 235px;
+    }
+
+    #review {
+        position: relative;
+        padding: 4rem 2rem;
+        border-radius: 1.5rem;
+        margin: 2rem auto;
+        max-width: 1200px;
+    }
+
+    #is {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+
+    .review-btn-container {
+        text-align: center;
+        margin-top: 4rem;
+    }
+</style>
+{{/section}}
+<!-- <script src="https://cdn.botpress.cloud/webchat/v1/inject.js"></script>
+<script src="https://mediafiles.botpress.cloud/28e0bce3-f2f4-4ec9-8d5d-b1e88233b00c/webchat/config.js" defer></script> -->
+{{!-- Home Section Starts --}}
+
+<!-- header section ends -->
+
+<!-- home section starts -->
+
+<section class="home" id="home">
+
+    <div class="content">
+        <h3>DISCOVER THRILLING ADVENTURES</h3>
+        <p>Embark On Exciting Journeys With Us</p>
+
+        <section class="newsletter">
+
+            <div class="content">
+                <!-- <h3>sign up and get started</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus quidem itaque corporis harum animi voluptatum!</p> -->
+                <form action="">
+                    <input type="email" placeholder="Enter Your Email" class="email">
+                    <a href="/auth" class="btn">join</a>
+                </form>
+            </div>
+        </section>
+        <!-- <a href="#" class="btn"> discover more</a> -->
+    </div>
+
+    <div class="video-container">
+        <video src="/videos/home.mp4" id="video" loop autoplay muted></video>
+    </div>
+
+</section>
+
+<!-- home section ends -->
+
+<!-- about section starts -->
+
+<section class="about" id="about">
+
+    <h1 class="heading">about us</h1>
+
+    <div class="container">
+
+        <div class="image-container">
+            <img src="/images/about/about-1.jpg" alt="" class="image">
+            <div class="controls">
+                <span class="control-btn" data-src="/images/about/about-1.jpg"></span>
+                <span class="control-btn" data-src="/images/about/about-2.jpg"></span>
+                <span class="control-btn" data-src="/images/about/about-3.jpg"></span>
+            </div>
+        </div>
+
+        <div class="content">
+            <span>Welcome To Our Journey</span>
+            <h3>Embark On Unforgettable Journeys</h3>
+            <p>Immerse Yourself In The Art Of Exploration With Us. Our Mission Is To Craft Unique And
+                Enriching Travel Experiences For Every Adventurer. Guided By A Passion For Discovery,
+                We Invite You To Join Us On A Journey Where Each Destination Becomes A Chapter In Your
+                Own Travel Story.</p>
+            <a href="/about" class="btn"> read more</a>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- about section ends -->
+
+<!-- services section starts -->
+
+<section class="services" id="services">
+
+    <h1 class="heading">our services</h1>
+
+    <div class="box-container">
+
+        <div class="box">
+            <img src="/images/services/services-1.png" alt="">
+            <h3>affordable hotel</h3>
+            <p>book luxary resort and Escape the Ordinary, Embrace the Extraordinary</p>
+            <a href="/affordable-hotels" class="btn">see All</a>
+        </div>
+
+        <div class="box">
+            <img src="/images/services/ai-chatbot.jpg" alt="">
+            <h3>AI cahtbot</h3>
+            <p>Experience seamless travel planning with our AI-powered chatbot, available 24/7 to assist you </p>
+            <!-- <a href="#" class="btn">read more</a> -->
+        </div>
+
+        <div class="box">
+            <img src="/images/services/services-3.png" alt="">
+            <h3>Affordable, Well-Planned Trips Instantly”</h3>
+
+            <p>Experience seamless travel planning with unbeatable prices, tailored just for you!</p>
+            <!-- <a href="#" class="btn">read more</a> -->
+        </div>
+
+    </div>
+
+</section>
+
+<!-- services section ends -->
+
+<!-- pckages section starts -->
+
+<section class="packages" id="packages">
+
+    <h1 class="heading">our packages</h1>
+
+    <div class="box-container">
+        <div class="box">
+            <div class="image">
+                <img src="/images/packages/package-1.jpg" alt="Manali snow-capped mountains">
+            </div>
+            <div class="content">
+                <h3>Manali</h3>
+                <div class="price">₹26,000 <span>₹30,000</span></div>
+                <p>Nestled in the Himalayas, Manali is famous for its snow-capped mountains, lush valleys, and
+                    adventure sports.</p>
+                <div class="pkg-btn-group">
+                    <a href="/destinations/manali" class="btn">Explore</a>
+                    <a href="/booking/hotel/manali" class="btn">Book Hotels</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="image">
+                <img src="/images/destinations/goa/goa-1.avif" alt="Goa beach">
+            </div>
+            <div class="content">
+                <h3>Goa</h3>
+                <div class="price">₹23,000 <span>₹25,000</span></div>
+                <p>Sun-drenched beaches, Portuguese heritage, world-class seafood, and a nightlife scene unlike
+                    anywhere else in India.</p>
+                <div class="pkg-btn-group">
+                    <a href="/destinations/goa" class="btn">Explore</a>
+                    <a href="/booking/hotel/goa" class="btn">Book Hotels</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="image">
+                <img src="/images/packages/package-3.jpg" alt="Darjeeling tea gardens">
+            </div>
+            <div class="content">
+                <h3>Darjeeling</h3>
+                <div class="price">₹25,000 <span>₹28,000</span></div>
+                <p>This hill station is renowned for its tea gardens, panoramic views of the Himalayas, and the
+                    iconic toy train.</p>
+                <div class="pkg-btn-group">
+                    <a href="/destinations/darjeeling" class="btn">Explore</a>
+                    <a href="/booking/hotel/darjeeling" class="btn">Book Hotels</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="image">
+                <img src="/images/packages/package-4.jpg" alt="Varanasi ghats">
+            </div>
+            <div class="content">
+                <h3>Varanasi</h3>
+                <div class="price">₹18,500 <span>₹20,000</span></div>
+                <p>One of the world's oldest cities, Varanasi is known for its spiritual ghats along the Ganges and
+                    vibrant cultural heritage.</p>
+                <div class="pkg-btn-group">
+                    <a href="/destinations/varanasi" class="btn">Explore</a>
+                    <a href="/booking/hotel/varanasi" class="btn">Book Hotels</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="image">
+                <img src="/images/packages/package-5.jpg" alt="Ooty Nilgiri hills">
+            </div>
+            <div class="content">
+                <h3>Ooty</h3>
+                <div class="price">₹24,000 <span>₹26,000</span></div>
+                <p>Located in the Nilgiri Hills, Ooty is celebrated for its picturesque landscapes, tea plantations,
+                    and serene lakes.</p>
+                <div class="pkg-btn-group">
+                    <a href="/destinations/ooty" class="btn">Explore</a>
+                    <a href="/booking/hotel/ooty" class="btn">Book Hotels</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="image">
+                <img src="/images/packages/package-6.jpg" alt="Udaipur City of Lakes">
+            </div>
+            <div class="content">
+                <h3>Udaipur</h3>
+                <div class="price">₹15,000 <span>₹20,000</span></div>
+                <p>Often called the "City of Lakes," Udaipur is famous for its beautiful palaces, shimmering lakes,
+                    and rich Rajput history.</p>
+                <div class="pkg-btn-group">
+                    <a href="/destinations/udaipur" class="btn">Explore</a>
+                    <a href="/booking/hotel/udaipur" class="btn">Book Hotels</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>ction>
+
+<!-- pckages section ends -->
+
+
+<!-- gallery section starts -->
+
+<section class="gallery" id="gallery">
+
+    <h1 class="heading">our gallery</h1>
+
+    <div class="box-container">
+
+        <div class="box">
+            <img src="/images/gallery/gallery-1.jpg" alt="">
+        </div>
+
+        <div class="box">
+            <img src="/images/gallery/gallery-2.jpg" alt="">
+        </div>
+
+        <div class="box">
+            <img src="/images/gallery/gallery-3.jpg" alt="">
+        </div>
+
+        <div class="box">
+            <img src="/images/gallery/gallery-4.jpg" alt="">
+        </div>
+
+        <div class="box">
+            <img src="/images/gallery/gallery-5.jpg" alt="">
+        </div>
+
+        <div class="box">
+            <img src="/images/gallery/gallery-6.jpg" alt="">
+        </div>
+
+    </div>
+
+</section>
+
+<!-- gallery section ends -->
+
+
+<!-- book section starts -->
+
+<section class="book" id="book">
+
+    <div class="row">
+        <h1 class="heading">Client reviews</h1>
+        <!-- 
+            <form action="">
+                <div class="inputBox">
+                    <h3>where to</h3>
+                    <input type="text" placeholder="place name">
+                </div>
+                <div class="inputBox">
+                    <h3>how many</h3>
+                    <input type="text" placeholder="number of guests">
+                </div>
+                <div class="inputBox">
+                    <h3>arrivals</h3>
+                    <input type="date">
+                </div>
+                <div class="inputBox">
+                    <h3>leaving</h3>
+                    <input type="date">
+                </div>
+                <div class="inputBox">
+                <h3>Email</h3>
+                <input type="text" placeholder="personal Email">
+            </div>
+            <input type="submit" value="book now" class="btn">
+            </form> -->
+
+        <div class="container newsletter" id="review">
+
+            <div class="slide-container">
+
+                <div class="slide active">
+                    <!-- <img src="/images/testimonials/quote-img.png" style="position: relative; right: 300px;" alt="" class="quote">  -->
+                    <p>Varanasi’s spiritual atmosphere and rich history deeply moved me, especially the mesmerizing
+                        evening Aarti ceremony.”</p>
+                    <img src="/images/testimonials/pic-1.png" alt="" class="images">
+                    <h3>john lary</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <!-- <img src="/images/testimonials/quote-img.png" alt="" class="quote"> -->
+                    <p>The Taj Mahal and Agra’s Mughal architecture were breathtaking, making my stay with a view of
+                        the Taj special.”.</p>
+                    <img src="/images/testimonials/pic-2.png" alt="" class="images">
+                    <h3>john lary</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <!-- <img src="/images/testimonials/quote-img.png" alt="" class="quote"> -->
+                    <p>Goa’s stunning beaches, vibrant nightlife, and friendly locals made my trip unforgettable and
+                        full of joy.”</p>
+                    <img src="/images/testimonials/pic-3.png" alt="" class="images">
+                    <h3>john lary</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <!-- <img src="/images/testimonials/quote-img.png" alt="" class="quote"> -->
+                    <p>shimla’s colonial architecture and scenic beauty were captivating. The Mall Road and Jakhu
+                        Temple were highlights of my trip.”</p>
+                    <img src="/images/testimonials/pic-4.png" alt="" class="images">
+                    <h3>john lary</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="controls" id="is">
+                <div class="fas fa-long-arrow-alt-left" onclick="next()"></div>
+                <div class="fas fa-long-arrow-alt-right" onclick="prev()"></div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="review-btn-container" style="text-align: center; margin-top: 20px;">
+        <a href="/reviews" class="btn">Read All Reviews</a>
+    </div>
+</section>
+
+<!-- book section ends -->
+
+
+<!-- footer section starts -->
+
+<section class="footer">
+
+    <div class="box-container">
+
+        <div class="box">
+            <h3>contact info</h3>
+            <a href="#"> <i class="fas fa-phone"></i> +123-4567-8912</a>
+            <a href="#"><i class="fas fa-envelope"></i> mahirpatel1426@gmail.com</a>
+            <a href="#"><i class="fas fa-map"></i> mehsana,gujrat,india</a>
+        </div>
+
+        <div class="box">
+            <h3>quick links</h3>
+            <a href="#home"><i class="fas fa-arrow-right"></i> home</a>
+            <a href="#about"><i class="fas fa-arrow-right"></i> about us</a>
+            <a href="#services"><i class="fas fa-arrow-right"></i> services</a>
+            <a href="#packages"><i class="fas fa-arrow-right"></i> packages</a>
+            <a href="/reviews"><i class="fas fa-arrow-right"></i> reviews</a>
+        </div>
+
+        <div class="box">
+            <h3>travel resources</h3>
+            <a href="#"><i class="fas fa-arrow-right"></i> travel guide</a>
+            <a href="#"><i class="fas fa-arrow-right"></i> trip insurance</a>
+            <a href="#"><i class="fas fa-arrow-right"></i> packing tips</a>
+            <a href="#"><i class="fas fa-arrow-right"></i> travel blog</a>
+            <a href="#"><i class="fas fa-arrow-right"></i> safety tips</a>
+        </div>
+
+        <div class="box">
+            <h3>legal info</h3>
+            <a href="#"><i class="fas fa-arrow-right"></i> privacy policy</a>
+            <a href="#"><i class="fas fa-arrow-right"></i> terms of service</a>
+            <a href="#"><i class="fas fa-arrow-right"></i> cookie policy</a>
+            <a href="#"><i class="fas fa-arrow-right"></i> disclaimer</a>
+            <a href="#"><i class="fas fa-arrow-right"></i> cancellation policy</a>
+        </div>
+    </div>
+    <div class="credit"> created by <span>Travelo</span> | all rights reserved </div>
+</section>
+
+<!-- footer section ends -->

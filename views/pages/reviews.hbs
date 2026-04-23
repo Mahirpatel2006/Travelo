@@ -1,0 +1,563 @@
+<style>
+/* ── Reviews Page ─────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap');
+
+
+body { font-family: 'Inter', sans-serif !important; text-transform: none !important; }
+
+
+
+.rev-page {
+  min-height: 100vh;
+  background: #f9fbfc;
+  padding-bottom: 9.6rem;
+  padding-top: 8rem;
+}
+
+
+/* ── Page Hero ── */
+.rev-hero {
+  background: linear-gradient(180deg, #f0f4f8 0%, #f9fbfc 100%);
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  padding: 8rem 2.4rem 5.6rem;
+  text-align: center;
+}
+
+.rev-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.72rem;
+  font-size: 1.28rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase !important;
+  color: #208886;
+  background: rgba(41,165,163,.12);
+  border: 1px solid rgba(41,165,163,.3);
+  border-radius: 30px;
+  padding: 0.64rem 1.6rem;
+  margin-bottom: 2rem;
+}
+
+.rev-hero-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(3.2rem, 5vw, 5.6rem);
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 1.2rem;
+}
+
+.rev-hero-sub {
+  font-size: 1.76rem;
+  color: #4a5568;
+  max-width: 480px;
+  margin: 0 auto 3.2rem;
+  line-height: 1.7;
+  text-transform: none !important;
+}
+
+/* ── Summary stats row ── */
+.rev-stats {
+  display: flex;
+  justify-content: center;
+  gap: 4.8rem;
+  flex-wrap: wrap;
+}
+
+.rev-stat-item { text-align: center; }
+.rev-stat-num {
+  font-size: 3.6rem;
+  font-weight: 800;
+  color: #1a202c;
+  display: block;
+}
+.rev-stat-label { font-size: 1.36rem; color: #4a5568; text-transform: uppercase !important; letter-spacing: 1px; }
+.rev-stat-stars { color: #f5af41; font-size: 1.92rem; display: block; margin-bottom: 0.24rem; }
+
+/* ── Container ── */
+.rev-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2.4rem;
+}
+
+/* ── Toolbar (search + filter) ── */
+.rev-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  margin: 4.8rem 0 3.2rem;
+  flex-wrap: wrap;
+}
+
+.rev-search-wrap {
+  flex: 1;
+  min-width: 220px;
+  position: relative;
+}
+
+.rev-search-wrap i {
+  position: absolute;
+  left: 1.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #4a5568;
+  font-size: 1.36rem;
+}
+
+.rev-search {
+  width: 100%;
+  background: #fff;
+  border: 1.5px solid rgba(0,0,0,.12);
+  border-radius: 12px;
+  padding: 1.36rem 1.76rem 1.36rem 4.56rem;
+  font-size: 1.6rem;
+  color: #1a202c;
+  font-family: inherit;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+  text-transform: none !important;
+}
+
+.rev-search:focus {
+  border-color: #29a5a3;
+  box-shadow: 0 0 0 3px rgba(41,165,163,.12);
+}
+
+.rev-search::placeholder { color: #a0aec0; }
+
+.rev-count-label {
+  font-size: 1.44rem;
+  color: #4a5568;
+  white-space: nowrap;
+}
+
+/* ── Cards Grid ── */
+.rev-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4.8rem;
+}
+
+/* ── Single Review Card ── */
+.rev-card {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 16px;
+  padding: 2.4rem;
+  transition: border-color .25s, transform .25s, box-shadow .25s;
+  display: flex;
+  flex-direction: column;
+  gap: 1.44rem;
+}
+
+.rev-card:hover {
+  border-color: rgba(41,165,163,.3);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0,0,0,.05), 0 0 0 1px rgba(41,165,163,.08);
+}
+
+.rev-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1.36rem;
+}
+
+.rev-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #29a5a3, #1e4d6b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.52rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+
+.rev-meta { flex: 1; min-width: 0; }
+
+.rev-name {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin-bottom: 0.32rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: none !important;
+}
+
+.rev-dest {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.48rem;
+  font-size: 1.152rem;
+  color: #208886;
+  background: rgba(41,165,163,.1);
+  border-radius: 20px;
+  padding: 0.24rem 0.88rem;
+}
+
+.rev-stars {
+  color: #f5af41;
+  font-size: 1.28rem;
+  letter-spacing: .5px;
+}
+
+.rev-body {
+  font-size: 1.56rem;
+  color: #4a5568;
+  line-height: 1.75;
+  flex: 1;
+  text-transform: none !important;
+}
+
+.rev-body::before {
+  content: '"';
+  font-size: 2.56rem;
+  color: rgba(41,165,163,.3);
+  font-family: Georgia, serif;
+  line-height: 0;
+  vertical-align: -0.5em;
+  margin-right: 0.24rem;
+}
+
+/* ── Empty state ── */
+.rev-empty {
+  text-align: center;
+  padding: 6.4rem 1.6rem;
+  color: #4a5568;
+  grid-column: 1 / -1;
+}
+
+.rev-empty i { font-size: 4rem; color: rgba(41,165,163,.3); margin-bottom: 1.6rem; display: block; }
+.rev-empty p { font-size: 1.52rem; }
+
+/* ── Messages (success / error) ── */
+.rev-message {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.44rem 2rem;
+  border-radius: 12px;
+  font-size: 1.408rem;
+  margin-bottom: 2.4rem;
+}
+
+.rev-message.success {
+  background: rgba(40,167,69,.1);
+  border: 1px solid rgba(40,167,69,.25);
+  color: #56d364;
+}
+
+.rev-message.error {
+  background: rgba(220,53,69,.1);
+  border: 1px solid rgba(220,53,69,.25);
+  color: #ff7b7b;
+}
+
+/* ── Write-a-Review Section ── */
+.rev-write {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 20px;
+  padding: 4rem;
+  margin-top: 1.6rem;
+  box-shadow: 0 10px 40px rgba(0,0,0,.03);
+}
+
+.rev-write-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 0.64rem;
+  text-transform: none !important;
+}
+
+.rev-write-sub {
+  font-size: 1.56rem;
+  color: #4a5568;
+  margin-bottom: 3.2rem;
+  text-transform: none !important;
+}
+
+.rev-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.36rem;
+}
+
+.rev-field { display: flex; flex-direction: column; gap: 0.64rem; }
+.rev-field.full { grid-column: 1 / -1; }
+
+.rev-label {
+  font-size: 1.28rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase !important;
+  color: #4a5568;
+}
+
+.rev-input, .rev-textarea, .rev-select {
+  background: #f8fafb;
+  border: 1.5px solid rgba(0,0,0,.12);
+  border-radius: 10px;
+  padding: 1.44rem 1.76rem;
+  font-size: 1.6rem;
+  color: #1a202c;
+  font-family: inherit;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+  width: 100%;
+  text-transform: none !important;
+}
+
+.rev-input:focus, .rev-textarea:focus, .rev-select:focus {
+  border-color: #29a5a3;
+  box-shadow: 0 0 0 3px rgba(41,165,163,.12);
+}
+
+.rev-input::placeholder, .rev-textarea::placeholder { color: #a0aec0; }
+
+.rev-textarea { resize: vertical; min-height: 110px; }
+
+/* star rating picker */
+.rev-rating-row {
+  display: flex;
+  align-items: center;
+  gap: 0.48rem;
+}
+
+.rev-rating-row input[type="radio"] { display: none; }
+
+.rev-rating-row label {
+  font-size: 2.24rem;
+  color: #e2e8f0;
+  cursor: pointer;
+  transition: color .15s;
+}
+
+.rev-rating-row input[type="radio"]:checked ~ label,
+.rev-rating-row label:hover,
+.rev-rating-row label:hover ~ label { color: #f5af41; }
+
+.rev-rating-row { flex-direction: row-reverse; }
+.rev-rating-row label:hover,
+.rev-rating-row label:hover ~ label { color: #f5af41; }
+
+.rev-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.96rem;
+  width: 100%;
+  padding: 1.6rem 2.4rem;
+  background: linear-gradient(135deg, #29a5a3, #1e7e7c);
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 700;
+  font-family: inherit;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all .25s;
+  margin-top: 0.8rem;
+  text-transform: none !important;
+}
+
+.rev-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(41,165,163,.4);
+}
+
+.rev-auth-note {
+  text-align: center;
+  font-size: 1.28rem;
+  color: #4a5568;
+  margin-top: 1.36rem;
+}
+
+.rev-auth-note a { color: #208886; text-decoration: none; }
+.rev-auth-note a:hover { text-decoration: underline; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  /* Navbar override for mobile */
+  .header { padding: 1.6rem 2.4rem !important; }
+  #menu-btn { display: inline-block !important; }
+  .header .btn { display: none !important; }
+
+  .rev-hero { padding: 6.4rem 1.6rem 4rem; }
+  .rev-stats { gap: 2rem; }
+  .rev-stat-num { font-size: 2.88rem; }
+
+  .rev-toolbar { flex-direction: column; align-items: stretch; }
+  .rev-search-wrap { min-width: 100%; }
+
+  .rev-grid { grid-template-columns: 1fr; }
+
+  .rev-write { padding: 2.4rem; }
+  .rev-form-grid { grid-template-columns: 1fr; }
+
+  .rev-write-heading { font-size: 2.4rem; }
+}
+
+@media (max-width: 480px) {
+  .rev-hero-title { font-size: 2.88rem; }
+  .rev-hero-sub { font-size: 1.52rem; }
+  .rev-card { padding: 1.6rem; }
+  .rev-container { padding: 0 1.2rem; }
+}
+</style>
+
+<!-- ═══════════════════ PAGE CONTENT ═══════════════════ -->
+
+<div class="rev-page">
+
+  <!-- Hero -->
+  <div class="rev-hero">
+    <div class="rev-hero-badge"><i class="fas fa-star"></i> Verified Reviews</div>
+    <h1 class="rev-hero-title">Traveler Stories</h1>
+    <p class="rev-hero-sub">Honest experiences from real travelers who've explored India with Travelo.</p>
+    <div class="rev-stats">
+      <div class="rev-stat-item">
+        <span class="rev-stat-stars">★★★★★</span>
+        <span class="rev-stat-num">4.8</span>
+        <span class="rev-stat-label">Avg. Rating</span>
+      </div>
+      <div class="rev-stat-item">
+        <span class="rev-stat-num">2,400+</span>
+        <span class="rev-stat-label">Happy Travelers</span>
+      </div>
+      <div class="rev-stat-item">
+        <span class="rev-stat-num">6</span>
+        <span class="rev-stat-label">Destinations</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="rev-container">
+
+    <!-- Messages -->
+    {{#if success}}
+      <div class="rev-message success" style="margin-top:3.2rem">
+        <i class="fas fa-check-circle"></i> {{success}}
+      </div>
+    {{/if}}
+    {{#if error}}
+      <div class="rev-message error" style="margin-top:3.2rem">
+        <i class="fas fa-exclamation-circle"></i> {{error}}
+      </div>
+    {{/if}}
+
+    <!-- Toolbar -->
+    <div class="rev-toolbar">
+      <div class="rev-search-wrap">
+        <i class="fas fa-search"></i>
+        <input class="rev-search" id="rev-search-input" type="text" placeholder="Search by name or destination…" oninput="filterReviews()">
+      </div>
+      <span class="rev-count-label" id="rev-count">
+        {{#if reviews}}{{reviews.length}} review{{#if reviews.length}}s{{/if}}{{else}}0 reviews{{/if}}
+      </span>
+    </div>
+
+    <!-- Reviews Grid -->
+    <div class="rev-grid" id="rev-grid">
+      {{#if reviews}}
+        {{#each reviews}}
+        <article class="rev-card" data-search="{{name}} {{destination}} {{review}}">
+          <div class="rev-card-header">
+            <div class="rev-avatar">{{nameInitial name}}</div>
+            <div class="rev-meta">
+              <div class="rev-name">{{name}}</div>
+              {{#if destination}}
+                <span class="rev-dest"><i class="fas fa-map-marker-alt"></i> {{destination}}</span>
+              {{/if}}
+            </div>
+            <div class="rev-stars">
+              {{#times (or rating 5)}}★{{/times}}
+            </div>
+          </div>
+          <p class="rev-body">{{review}}</p>
+        </article>
+        {{/each}}
+      {{else}}
+        <div class="rev-empty">
+          <i class="far fa-comment-dots"></i>
+          <p>No reviews yet — be the first to share your experience!</p>
+        </div>
+      {{/if}}
+    </div>
+
+    <!-- Write a Review -->
+    <div class="rev-write" id="write-review">
+      <div class="rev-write-title">Share Your Experience</div>
+      <p class="rev-write-sub">Traveled with us? Leave a review and help other travelers plan their perfect trip.</p>
+
+      <form action="/reviews" method="POST">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+        <div class="rev-form-grid">
+          <div class="rev-field">
+            <label class="rev-label" for="rev-name">Your Name</label>
+            <input class="rev-input" id="rev-name" type="text" name="revname" placeholder="Full name" required>
+          </div>
+          <div class="rev-field">
+            <label class="rev-label" for="rev-place">Destination Visited</label>
+            <input class="rev-input" id="rev-place" type="text" name="revplace" placeholder="e.g. Goa, Manali…" required>
+          </div>
+          <div class="rev-field">
+            <label class="rev-label" for="rev-email">Email <span style="color:#4a5568">(optional)</span></label>
+            <input class="rev-input" id="rev-email" type="email" name="revemail" placeholder="you@email.com">
+          </div>
+          <div class="rev-field">
+            <label class="rev-label">Rating</label>
+            <div class="rev-rating-row">
+              {{!-- Stars reversed via CSS (flex-direction: row-reverse) --}}
+              <input type="radio" id="s5" name="rating" value="5"><label for="s5">★</label>
+              <input type="radio" id="s4" name="rating" value="4"><label for="s4">★</label>
+              <input type="radio" id="s3" name="rating" value="3"><label for="s3">★</label>
+              <input type="radio" id="s2" name="rating" value="2"><label for="s2">★</label>
+              <input type="radio" id="s1" name="rating" value="1" checked><label for="s1">★</label>
+            </div>
+          </div>
+          <div class="rev-field full">
+            <label class="rev-label" for="rev-body">Your Review <span style="color:#4a5568">(min. 10 characters)</span></label>
+            <textarea class="rev-textarea" id="rev-body" name="review" placeholder="Tell us about your experience — what did you love most?" required minlength="10"></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="rev-submit">
+          <i class="fas fa-paper-plane"></i> Submit Review
+        </button>
+      </form>
+
+      <p class="rev-auth-note">
+        <i class="fas fa-info-circle"></i>
+        Your review will be posted publicly instantly. We appreciate your feedback!
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function filterReviews() {
+  const q = document.getElementById('rev-search-input').value.toLowerCase();
+  const cards = document.querySelectorAll('.rev-card');
+  let visible = 0;
+  cards.forEach(card => {
+    const matches = card.dataset.search.toLowerCase().includes(q);
+    card.style.display = matches ? '' : 'none';
+    if (matches) visible++;
+  });
+  const countEl = document.getElementById('rev-count');
+  if (countEl) countEl.textContent = visible + ' review' + (visible !== 1 ? 's' : '');
+}
+</script>

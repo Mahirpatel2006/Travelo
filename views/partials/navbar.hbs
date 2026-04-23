@@ -1,0 +1,29 @@
+<header class="header">
+    <div id="menu-btn" class="fas fa-bars"></div>
+    <a href="/" class="logo">TRAVELO</a>
+    <nav class="navbar">
+        <div id="close-navbar" class="fas fa-times"></div>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/#services">Services</a>
+        <a href="/#packages">Packages</a>
+        <a href="/#gallery">Gallery</a>
+        <a href="/reviews">Review</a>
+        {{#if user}}
+            <a href="/profile" class="nav-profile-mobile">My Bookings</a>
+            <a href="/auth/logout" class="nav-logout-mobile">Logout</a>
+        {{else}}
+            <a href="/auth" class="nav-login-mobile">Login</a>
+        {{/if}}
+    </nav>
+    <div class="header-actions">
+        {{#if user}}
+            <a href="/profile" class="profile-btn" title="My Profile">
+                <span class="profile-avatar">{{nameInitial user.name}}</span>
+            </a>
+            <a href="/auth/logout" class="btn btn-logout">Logout</a>
+        {{else}}
+            <a href="/auth" class="btn btn-login">Login</a>
+        {{/if}}
+    </div>
+</header>
