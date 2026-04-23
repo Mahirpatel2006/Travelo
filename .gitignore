@@ -22,6 +22,10 @@ pids/
 .env.production.local
 *.env
 
+# Project documentation / Audit logs
+tasks.md
+Travelo_Production_Audit.md
+
 # OS Files
 .DS_Store
 .DS_Store?
